@@ -5,13 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nageons Yverdon — Évaluations Natation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <style>
 :root {
-  --ocean-900:#0c2d48;--ocean-800:#124a73;--ocean-700:#1565a0;--ocean-600:#1976d2;
-  --ocean-500:#2196f3;--ocean-400:#42a5f5;--ocean-300:#90caf9;--ocean-200:#bbdefb;
-  --ocean-100:#e3f2fd;--ocean-50:#f0f7ff;
-  --teal-600:#00897b;--teal-500:#009688;--teal-100:#e0f2f1;
+  --primary:#2C5F8A;--primary-light:#D4EAF5;--primary-bg:#B3D9E8;
+  --accent:#1976D2;--header-bg:#2C5F8A;
+  --teal-500:#0d9488;
   --green-600:#2e7d32;--green-500:#4caf50;--green-100:#e8f5e9;--green-50:#f1f8e9;
   --amber-600:#f57f17;--amber-500:#ff9800;--amber-100:#fff8e1;
   --red-600:#c62828;--red-500:#ef5350;--red-100:#ffebee;
@@ -19,7 +22,8 @@
   --gray-600:#757575;--gray-500:#9e9e9e;--gray-400:#bdbdbd;--gray-300:#e0e0e0;
   --gray-200:#eeeeee;--gray-100:#f5f5f5;--gray-50:#fafafa;
   --white:#ffffff;--text:#1a2332;--text-secondary:#546e7a;
-  --radius:16px;--radius-sm:10px;--radius-xs:6px;
+  --gold:#c8a415;
+  --radius:8px;--radius-sm:6px;--radius-xs:4px;
   --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
   --shadow:0 4px 12px rgba(0,0,0,0.07),0 1px 3px rgba(0,0,0,0.05);
   --shadow-lg:0 10px 30px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.05);
@@ -31,30 +35,25 @@
   --boy-color:#1565c0;--boy-bg:#e3f2fd;--boy-avatar:linear-gradient(135deg,#64b5f6,#42a5f5);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Nunito',system-ui,-apple-system,sans-serif;background:var(--ocean-50);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body{font-family:'Montserrat',system-ui,-apple-system,sans-serif;background:var(--primary-bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
 /* ====== HEADER ====== */
-.hero{position:relative;background:linear-gradient(135deg,var(--ocean-900) 0%,var(--ocean-700) 40%,var(--ocean-500) 100%);color:white;padding:28px 30px 55px;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 20% 80%,rgba(255,255,255,0.08) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,255,255,0.05) 0%,transparent 40%);pointer-events:none;}
+.hero{background:var(--header-bg);color:white;padding:22px 30px;}
 .hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;}
-.hero-logo{width:52px;height:52px;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;border:1px solid rgba(255,255,255,0.2);flex-shrink:0;}
-.hero h1{font-size:1.5rem;font-weight:800;letter-spacing:-0.3px;}
-.hero .subtitle{font-size:0.85rem;opacity:0.75;font-weight:600;}
-.hero-actions{margin-left:auto;display:flex;gap:8px;}
-.btn-glass{background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);color:white;padding:8px 14px;border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;cursor:pointer;transition:var(--transition);font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
+.hero-logo{width:48px;height:48px;background:rgba(255,255,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.hero-logo svg{width:100%;height:100%;}
+.hero h1{font-size:1.4rem;font-weight:900;letter-spacing:0.5px;text-transform:uppercase;}
+.hero .subtitle{font-size:0.82rem;opacity:0.75;font-weight:600;letter-spacing:0.3px;}
+.hero-actions{margin-left:auto;display:flex;gap:8px;align-items:center;}
+.btn-glass{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;padding:8px 14px;border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;cursor:pointer;transition:var(--transition);font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
 .btn-glass:hover{background:rgba(255,255,255,0.25);}
-.bubbles{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:1;}
-.bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,0.07);animation:floatBubble linear infinite;}
-@keyframes floatBubble{0%{transform:translateY(100%) scale(0);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(-200%) scale(1);opacity:0;}}
-.wave-container{position:relative;margin-top:-45px;z-index:1;}
-.wave-container svg{display:block;width:100%;}
 
 /* ====== NAV ====== */
-nav{background:var(--white);display:flex;gap:0;box-shadow:var(--shadow);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--ocean-100);}
+nav{background:var(--white);display:flex;gap:0;box-shadow:0 2px 8px rgba(0,0,0,0.08);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--gray-300);}
 nav button{flex:1;padding:14px 10px;border:none;background:none;cursor:pointer;font-size:0.85rem;font-weight:700;color:var(--text-secondary);transition:var(--transition);border-bottom:3px solid transparent;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;position:relative;}
 nav button svg{width:17px;height:17px;stroke-width:2.5;}
-nav button:hover{color:var(--ocean-600);background:var(--ocean-50);}
-nav button.active{color:var(--ocean-700);border-bottom-color:var(--ocean-500);background:var(--ocean-50);}
+nav button:hover{color:var(--primary);background:var(--primary-light);}
+nav button.active{color:var(--primary);border-bottom-color:var(--primary);background:var(--primary-light);}
 
 /* ====== PAGES ====== */
 .page{display:none;max-width:1100px;margin:0 auto;padding:20px 20px 60px;animation:fadeInUp 0.3s ease;}
@@ -62,39 +61,39 @@ nav button.active{color:var(--ocean-700);border-bottom-color:var(--ocean-500);ba
 @keyframes fadeInUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
 /* ====== CARDS ====== */
-.card{background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px;border:1px solid rgba(0,0,0,0.04);transition:box-shadow var(--transition);}
+.card{background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:16px;border:1px solid rgba(0,0,0,0.04);transition:box-shadow var(--transition);border-left:3px solid var(--primary);}
 .card:hover{box-shadow:var(--shadow-lg);}
 .card-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
-.card-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.card-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .card-icon svg{width:20px;height:20px;stroke-width:2;}
-.card-icon.blue{background:var(--ocean-100);color:var(--ocean-600);}
+.card-icon.blue{background:var(--primary-light);color:var(--primary);}
 .card-icon.green{background:var(--green-100);color:var(--green-600);}
-.card-icon.teal{background:var(--teal-100);color:var(--teal-500);}
+.card-icon.teal{background:#e0f2f1;color:#00897b;}
 .card-icon.amber{background:var(--amber-100);color:var(--amber-600);}
 .card-icon.purple{background:var(--purple-100);color:var(--purple-600);}
 .card h2{font-size:1.05rem;font-weight:800;color:var(--text);letter-spacing:-0.2px;}
 .badge{font-size:0.72rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-left:8px;}
-.badge-blue{background:var(--ocean-100);color:var(--ocean-600);}
+.badge-blue{background:var(--primary-light);color:var(--primary);}
 .badge-pb{background:var(--pb-bg);color:var(--pb-color);}
 .badge-gb{background:var(--gb-bg);color:var(--gb-color);}
 
 /* ====== FORMS ====== */
 label{font-weight:700;display:block;margin-bottom:5px;font-size:0.85rem;color:var(--text);}
-input[type="text"],input[type="date"],textarea,select{width:100%;padding:10px 14px;border:2px solid var(--gray-300);border-radius:var(--radius-sm);font-size:0.9rem;font-family:inherit;transition:var(--transition);background:var(--gray-50);color:var(--text);}
-input:focus,textarea:focus,select:focus{border-color:var(--ocean-400);outline:none;box-shadow:0 0 0 3px rgba(33,150,243,0.12);background:var(--white);}
+input[type="text"],input[type="date"],textarea,select{width:100%;padding:10px 14px;border:2px solid var(--gray-300);border-radius:var(--radius-sm);font-size:0.9rem;font-family:inherit;transition:var(--transition);background:var(--white);color:var(--text);}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(25,118,210,0.12);background:var(--white);}
 textarea{resize:vertical;min-height:100px;}
 
 /* ====== BUTTONS ====== */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:700;cursor:pointer;transition:var(--transition);font-family:inherit;text-decoration:none;}
 .btn:active{transform:scale(0.97);}
 .btn svg{width:15px;height:15px;stroke-width:2.5;}
-.btn-primary{background:linear-gradient(135deg,var(--ocean-600),var(--ocean-500));color:white;box-shadow:0 2px 8px rgba(33,150,243,0.3);}
-.btn-primary:hover{box-shadow:0 4px 16px rgba(33,150,243,0.4);transform:translateY(-1px);}
-.btn-success{background:linear-gradient(135deg,var(--green-600),var(--green-500));color:white;}
+.btn-primary{background:var(--primary);color:white;box-shadow:0 2px 6px rgba(44,95,138,0.3);}
+.btn-primary:hover{background:#1e4f75;box-shadow:0 4px 12px rgba(44,95,138,0.4);}
+.btn-success{background:var(--green-600);color:white;}
 .btn-danger{background:var(--red-500);color:white;}
 .btn-danger:hover{background:var(--red-600);}
-.btn-outline{background:transparent;border:2px solid var(--ocean-300);color:var(--ocean-600);}
-.btn-outline:hover{background:var(--ocean-50);border-color:var(--ocean-400);}
+.btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary);}
+.btn-outline:hover{background:var(--primary-light);}
 .btn-ghost{background:transparent;color:var(--text-secondary);}
 .btn-ghost:hover{background:var(--gray-100);}
 .btn-sm{padding:7px 13px;font-size:0.78rem;border-radius:8px;}
@@ -106,8 +105,8 @@ textarea{resize:vertical;min-height:100px;}
 /* ====== LEVEL TABS ====== */
 .level-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
 .level-tab{padding:8px 18px;border-radius:20px;border:2px solid var(--gray-300);background:var(--white);font-family:inherit;font-size:0.85rem;font-weight:700;cursor:pointer;transition:var(--transition);color:var(--text-secondary);}
-.level-tab:hover{border-color:var(--ocean-400);color:var(--ocean-600);}
-.level-tab.active{background:var(--ocean-600);color:white;border-color:var(--ocean-600);}
+.level-tab:hover{border-color:var(--accent);color:var(--accent);}
+.level-tab.active{background:var(--primary);color:white;border-color:var(--primary);}
 
 /* ====== POOL TABS ====== */
 .pool-tabs{display:flex;gap:0;margin-bottom:16px;border-radius:var(--radius-sm);overflow:hidden;border:2px solid var(--gray-300);}
@@ -120,7 +119,7 @@ textarea{resize:vertical;min-height:100px;}
 .student-list{list-style:none;}
 .student-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius-sm);transition:var(--transition);border-bottom:1px solid var(--gray-200);}
 .student-item:last-child{border-bottom:none;}
-.student-item:hover{background:var(--ocean-50);}
+.student-item:hover{background:var(--primary-light);}
 .student-avatar{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.82rem;color:white;flex-shrink:0;}
 .student-name{font-weight:700;flex:1;font-size:0.9rem;}
 .student-name .gender-tag{font-size:0.68rem;font-weight:800;padding:1px 6px;border-radius:8px;margin-left:6px;vertical-align:middle;}
@@ -138,30 +137,30 @@ textarea{resize:vertical;min-height:100px;}
 /* ====== CRITERIA ====== */
 .criteria-item{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius-sm);transition:var(--transition);border-bottom:1px solid var(--gray-200);}
 .criteria-item:last-child{border-bottom:none;}
-.criteria-item:hover{background:var(--ocean-50);}
-.criteria-num{width:28px;height:28px;border-radius:8px;background:var(--ocean-100);color:var(--ocean-700);font-weight:800;font-size:0.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.criteria-item:hover{background:var(--primary-light);}
+.criteria-num{width:28px;height:28px;border-radius:8px;background:var(--primary-light);color:var(--primary);font-weight:800;font-size:0.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .criteria-name{font-weight:700;flex:1;font-size:0.88rem;}
 .criteria-actions{display:flex;gap:3px;opacity:0.3;transition:var(--transition);}
 .criteria-item:hover .criteria-actions{opacity:1;}
 .arrow-btn{width:28px;height:28px;border:1.5px solid var(--gray-300);border-radius:7px;background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition);font-family:inherit;color:var(--text-secondary);}
-.arrow-btn:hover{background:var(--ocean-50);border-color:var(--ocean-300);color:var(--ocean-600);}
+.arrow-btn:hover{background:var(--primary-light);border-color:var(--primary);color:var(--primary);}
 .arrow-btn:disabled{opacity:0.2;cursor:default;}
 .preset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px;}
 .preset-btn{display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-300);background:var(--white);cursor:pointer;font-family:inherit;font-size:0.8rem;font-weight:600;color:var(--text);text-align:left;transition:var(--transition);}
-.preset-btn:hover{border-color:var(--ocean-400);background:var(--ocean-50);}
+.preset-btn:hover{border-color:var(--accent);background:var(--primary-light);}
 .preset-btn.added{border-color:var(--green-500);background:var(--green-50);color:var(--green-600);}
-.preset-dot{width:7px;height:7px;border-radius:50%;background:var(--ocean-400);flex-shrink:0;}
+.preset-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;}
 .preset-btn.added .preset-dot{background:var(--green-500);}
 
 /* ====== EVAL GRID ====== */
 .eval-grid{width:100%;border-collapse:separate;border-spacing:0;font-size:0.83rem;}
-.eval-grid thead th{background:var(--ocean-800);color:white;padding:12px 8px;text-align:center;font-weight:700;font-size:0.76rem;position:sticky;top:55px;z-index:10;}
-.eval-grid thead th:first-child{text-align:left;padding-left:14px;min-width:130px;border-radius:var(--radius-sm) 0 0 0;}
+.eval-grid thead th{background:var(--primary);color:white;padding:12px 8px;text-align:center;font-weight:700;font-size:0.76rem;}
+.eval-grid thead th:first-child{text-align:left;padding-left:14px;min-width:130px;border-radius:var(--radius-sm) 0 0 0;position:sticky;left:0;z-index:3;background:var(--primary);}
 .eval-grid thead th:last-child{border-radius:0 var(--radius-sm) 0 0;}
 .eval-grid td{padding:8px 5px;text-align:center;border-bottom:1px solid var(--gray-200);transition:var(--transition);}
-.eval-grid td:first-child{text-align:left;font-weight:700;padding-left:14px;background:var(--gray-50);border-right:2px solid var(--gray-200);}
-.eval-grid tbody tr:hover td{background:var(--ocean-50);}
-.eval-grid tbody tr:hover td:first-child{background:var(--ocean-100);}
+.eval-grid td:first-child{text-align:left;font-weight:700;padding-left:14px;background:var(--gray-50);border-right:2px solid var(--gray-200);position:sticky;left:0;z-index:2;}
+.eval-grid tbody tr:hover td{background:var(--primary-light);}
+.eval-grid tbody tr:hover td:first-child{background:#c2dff0;}
 .eval-options{display:flex;gap:3px;justify-content:center;}
 .eval-option{display:none;}
 .eval-label{display:flex;align-items:center;justify-content:center;width:32px;height:28px;border-radius:7px;cursor:pointer;font-size:0.7rem;font-weight:800;border:2px solid transparent;transition:var(--transition);user-select:none;}
@@ -184,7 +183,7 @@ textarea{resize:vertical;min-height:100px;}
 .stat-a{background:var(--red-100);color:var(--red-600);}
 .stat-n{background:var(--gray-200);color:var(--gray-600);}
 .progress-bar{height:7px;background:var(--gray-200);border-radius:4px;overflow:hidden;margin-top:10px;}
-.progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--ocean-500),var(--teal-500));transition:width 0.5s ease;}
+.progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--primary));transition:width 0.5s ease;}
 .legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 14px;background:var(--gray-50);border-radius:var(--radius-sm);font-size:0.78rem;font-weight:700;}
 .legend-item{display:flex;align-items:center;gap:5px;}
 .legend-dot{width:12px;height:12px;border-radius:4px;}
@@ -192,7 +191,7 @@ textarea{resize:vertical;min-height:100px;}
 
 /* ====== ATTENDANCE ====== */
 .attendance-grid{width:100%;border-collapse:separate;border-spacing:0;font-size:0.85rem;}
-.attendance-grid thead th{background:var(--purple-600);color:white;padding:11px 10px;text-align:center;font-weight:700;font-size:0.78rem;position:sticky;top:55px;z-index:10;}
+.attendance-grid thead th{background:var(--primary);color:white;padding:11px 10px;text-align:center;font-weight:700;font-size:0.78rem;}
 .attendance-grid thead th:first-child{text-align:left;padding-left:14px;min-width:130px;border-radius:var(--radius-sm) 0 0 0;}
 .attendance-grid thead th:last-child{border-radius:0 var(--radius-sm) 0 0;}
 .attendance-grid td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--gray-200);}
@@ -211,7 +210,7 @@ textarea{resize:vertical;min-height:100px;}
 
 /* ====== ATTENDANCE MULTI-DATE ====== */
 .att-multi-grid{width:100%;border-collapse:separate;border-spacing:0;font-size:0.82rem;}
-.att-multi-grid thead th{background:var(--purple-600);color:white;padding:10px 6px;text-align:center;font-weight:700;font-size:0.73rem;position:sticky;top:55px;z-index:10;white-space:nowrap;}
+.att-multi-grid thead th{background:var(--primary);color:white;padding:10px 6px;text-align:center;font-weight:700;font-size:0.73rem;white-space:nowrap;}
 .att-multi-grid thead th:first-child{text-align:left;padding-left:12px;min-width:120px;border-radius:var(--radius-sm) 0 0 0;}
 .att-multi-grid thead th:nth-child(2){min-width:55px;}
 .att-multi-grid thead th:last-child{border-radius:0 var(--radius-sm) 0 0;}
@@ -236,7 +235,7 @@ textarea{resize:vertical;min-height:100px;}
 
 /* ====== EMPTY ====== */
 .empty{text-align:center;padding:40px 20px;color:var(--text-secondary);}
-.empty-illustration{width:70px;height:70px;margin:0 auto 14px;background:var(--ocean-100);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;}
+.empty-illustration{width:70px;height:70px;margin:0 auto 14px;background:var(--primary-light);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;}
 .empty p{font-size:0.9rem;font-weight:600;}
 .empty .hint{font-size:0.8rem;color:var(--gray-500);margin-top:4px;}
 
@@ -251,14 +250,14 @@ textarea{resize:vertical;min-height:100px;}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--gray-300);}
 .divider span{font-size:0.78rem;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:1px;}
 .file-drop{border:2px dashed var(--gray-300);border-radius:var(--radius-sm);padding:18px;text-align:center;transition:var(--transition);cursor:pointer;position:relative;background:var(--gray-50);}
-.file-drop:hover{border-color:var(--ocean-400);background:var(--ocean-50);}
+.file-drop:hover{border-color:var(--accent);background:var(--primary-light);}
 .file-drop input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;}
 .file-drop-text{font-size:0.82rem;color:var(--text-secondary);font-weight:600;}
 .file-input-wrapper{position:relative;display:inline-block;}
 .file-input-wrapper input[type="file"]{position:absolute;left:0;top:0;opacity:0;width:100%;height:100%;cursor:pointer;}
 
 /* ====== TOAST ====== */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--ocean-800);color:white;padding:12px 24px;border-radius:12px;font-weight:700;font-size:0.85rem;box-shadow:var(--shadow-xl);z-index:2000;opacity:0;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);display:flex;align-items:center;gap:8px;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--primary);color:white;padding:12px 24px;border-radius:8px;font-weight:700;font-size:0.85rem;box-shadow:var(--shadow-xl);z-index:2000;opacity:0;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);display:flex;align-items:center;gap:8px;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 
 /* ====== TABLE WRAPPER ====== */
@@ -266,8 +265,8 @@ textarea{resize:vertical;min-height:100px;}
 
 /* ====== RESPONSIVE ====== */
 @media(max-width:700px){
-  .hero{padding:18px 14px 45px;}.hero h1{font-size:1.15rem;}.hero-actions{display:none;}
-  .hero-actions-mobile{display:flex!important;gap:8px;max-width:1100px;margin:-8px auto 0;padding:0 16px;position:relative;z-index:2;}
+  .hero{padding:18px 14px;}.hero h1{font-size:1.15rem;}.hero-actions{display:none;}
+  .hero-actions-mobile{display:flex!important;gap:8px;max-width:1100px;margin:8px auto 0;padding:0 16px;position:relative;z-index:2;}
   nav button{padding:10px 6px;font-size:0.75rem;gap:4px;}nav button .nav-label{display:none;}
   .card{padding:16px;}.eval-grid,.attendance-grid{font-size:0.74rem;}
   .eval-label{width:26px;height:24px;font-size:0.63rem;}.stats-bar{grid-template-columns:repeat(2,1fr);}
@@ -277,7 +276,7 @@ textarea{resize:vertical;min-height:100px;}
 
 /* ====== PRINT ====== */
 @media print{
-  .hero,nav,.btn,.no-print,.hero-actions-mobile,.wave-container,.level-tabs,.pool-tabs{display:none!important;}
+  .hero,nav,.btn,.no-print,.hero-actions-mobile,.level-tabs,.pool-tabs,footer{display:none!important;}
   .page{display:block!important;max-width:100%;margin:0;padding:0;}
   .page:not(.print-target){display:none!important;}
   .card{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid;}
@@ -293,8 +292,8 @@ textarea{resize:vertical;min-height:100px;}
 .eval-filter-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
 .eval-filter-bar label{margin:0;font-size:0.82rem;color:var(--text-secondary);}
 .filter-btn{padding:6px 14px;border-radius:20px;border:2px solid var(--gray-300);background:var(--white);font-family:inherit;font-size:0.8rem;font-weight:700;cursor:pointer;transition:var(--transition);color:var(--text-secondary);display:inline-flex;align-items:center;gap:5px;}
-.filter-btn:hover{border-color:var(--ocean-400);color:var(--ocean-600);}
-.filter-btn.active{background:var(--ocean-600);color:white;border-color:var(--ocean-600);}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent);}
+.filter-btn.active{background:var(--primary);color:white;border-color:var(--primary);}
 .filter-btn.active-girl{background:var(--girl-color);color:white;border-color:var(--girl-color);}
 .filter-btn.active-boy{background:var(--boy-color);color:white;border-color:var(--boy-color);}
 
@@ -307,23 +306,25 @@ textarea{resize:vertical;min-height:100px;}
 .gender-radio:checked+.gender-label.boy-label{border-color:var(--boy-color);background:var(--boy-bg);color:var(--boy-color);}
 
 /* ====== LOGIN SCREEN ====== */
-.login-overlay{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,var(--ocean-900) 0%,var(--ocean-700) 40%,var(--ocean-500) 100%);display:flex;align-items:center;justify-content:center;transition:opacity 0.5s ease;}
+.login-overlay{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#2C5F8A 0%,#D4EAF5 100%);display:flex;align-items:center;justify-content:center;transition:opacity 0.5s ease;}
 .login-overlay.hidden{opacity:0;pointer-events:none;}
-.login-card{background:var(--white);border-radius:24px;padding:40px 36px;width:92%;max-width:400px;box-shadow:var(--shadow-xl);text-align:center;animation:modalSlide 0.5s ease;}
-.login-card .login-logo{width:80px;height:80px;margin:0 auto 18px;background:linear-gradient(135deg,var(--ocean-500),var(--teal-500));border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;box-shadow:0 8px 24px rgba(33,150,243,0.3);}
-.login-card h2{font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:4px;}
+.login-card{background:var(--white);border:1px solid var(--gray-300);border-radius:16px;padding:40px 36px;width:92%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.15);text-align:center;animation:modalSlide 0.5s ease;}
+.login-card .login-logo{width:120px;height:140px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;}
+.login-card .login-logo svg{width:100%;height:100%;}
+.login-card h2{font-size:1.4rem;font-weight:900;color:var(--text);margin-bottom:4px;letter-spacing:0.5px;}
 .login-card .login-sub{font-size:0.85rem;color:var(--text-secondary);font-weight:600;margin-bottom:24px;}
 .login-input-group{position:relative;margin-bottom:16px;text-align:left;}
-.login-input-group input{width:100%;padding:14px 44px 14px 16px;border:2px solid var(--gray-300);border-radius:var(--radius-sm);font-size:0.95rem;font-family:inherit;transition:var(--transition);background:var(--gray-50);}
-.login-input-group input:focus{border-color:var(--ocean-400);outline:none;box-shadow:0 0 0 3px rgba(33,150,243,0.12);background:var(--white);}
+.login-input-group input{width:100%;padding:14px 44px 14px 16px;border:2px solid var(--gray-300);border-radius:var(--radius-sm);font-size:0.95rem;font-family:inherit;transition:var(--transition);background:var(--white);color:var(--text);}
+.login-input-group input::placeholder{color:var(--gray-400);}
+.login-input-group input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(25,118,210,0.12);}
 .login-input-group .toggle-pw{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-500);font-size:1.1rem;padding:4px;}
-.login-btn{width:100%;padding:14px;border:none;border-radius:var(--radius-sm);font-size:0.95rem;font-weight:800;cursor:pointer;font-family:inherit;background:linear-gradient(135deg,var(--ocean-600),var(--ocean-500));color:white;box-shadow:0 4px 16px rgba(33,150,243,0.3);transition:var(--transition);margin-bottom:10px;}
-.login-btn:hover{box-shadow:0 6px 24px rgba(33,150,243,0.4);transform:translateY(-1px);}
-.login-error{color:var(--red-600);font-size:0.82rem;font-weight:700;min-height:22px;margin-top:8px;}
+.login-btn{width:100%;padding:14px;border:none;border-radius:var(--radius-sm);font-size:0.95rem;font-weight:800;cursor:pointer;font-family:inherit;background:var(--primary);color:white;box-shadow:0 4px 12px rgba(44,95,138,0.3);transition:var(--transition);margin-bottom:10px;}
+.login-btn:hover{background:#1e4f75;box-shadow:0 6px 20px rgba(44,95,138,0.4);transform:translateY(-1px);}
+.login-error{color:var(--red-500);font-size:0.82rem;font-weight:700;min-height:22px;margin-top:8px;}
 .login-role-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:800;margin-left:8px;}
 .role-admin{background:#e8f5e9;color:#2e7d32;}
 .role-visitor{background:#fff3e0;color:#e65100;}
-.logout-btn{background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);color:white;padding:8px 14px;border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;cursor:pointer;transition:var(--transition);font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
+.logout-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:white;padding:8px 14px;border-radius:var(--radius-sm);font-size:0.8rem;font-weight:700;cursor:pointer;transition:var(--transition);font-family:inherit;display:inline-flex;align-items:center;gap:6px;}
 .logout-btn:hover{background:rgba(255,255,255,0.25);}
 .admin-only{/* shown/hidden by JS */}
 </style>
@@ -333,12 +334,34 @@ textarea{resize:vertical;min-height:100px;}
 <!-- ====== LOGIN SCREEN ====== -->
 <div class="login-overlay" id="login-overlay">
   <div class="login-card">
-    <div class="login-logo">🏊</div>
+    <div class="login-logo"><svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <linearGradient id="shieldGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1976D2;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#2C5F8A;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 5 L90 20 L90 60 Q90 95 50 115 Q10 95 10 60 L10 20 Z" fill="url(#shieldGrad2)" stroke="#c8a415" stroke-width="3"/>
+  <path d="M50 12 L83 24 L83 58 Q83 88 50 108 Q17 88 17 58 L17 24 Z" fill="#ffffff" stroke="none"/>
+  <path d="M20 65 Q30 58 40 65 Q50 72 60 65 Q70 58 80 65" fill="none" stroke="#1976D2" stroke-width="2" opacity="0.5"/>
+  <path d="M20 72 Q30 65 40 72 Q50 79 60 72 Q70 65 80 72" fill="none" stroke="#1976D2" stroke-width="1.5" opacity="0.3"/>
+  <ellipse cx="45" cy="52" rx="18" ry="4" fill="#1976D2" opacity="0.15"/>
+  <circle cx="32" cy="45" r="5" fill="#c8a415"/>
+  <path d="M37 46 L55 42" stroke="#c8a415" stroke-width="3" stroke-linecap="round"/>
+  <path d="M55 42 L62 35" stroke="#c8a415" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M37 48 L52 52" stroke="#c8a415" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M52 52 L60 56" stroke="#c8a415" stroke-width="2" stroke-linecap="round"/>
+  <path d="M60 56 L65 54" stroke="#c8a415" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M28 40 L24 36" stroke="#1976D2" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <path d="M30 38 L28 33" stroke="#1976D2" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <text x="50" y="90" text-anchor="middle" fill="#c8a415" font-family="Montserrat,sans-serif" font-weight="900" font-size="9" letter-spacing="2">NAGEONS</text>
+  <text x="50" y="100" text-anchor="middle" fill="#2C5F8A" font-family="Montserrat,sans-serif" font-weight="700" font-size="7" letter-spacing="1">YVERDON</text>
+</svg></div>
     <h2>Nageons Yverdon</h2>
     <p class="login-sub">Connexion — École primaire</p>
     <div class="login-input-group">
       <input type="password" id="login-password" placeholder="Mot de passe" autocomplete="off">
-      <button class="toggle-pw" onclick="toggleLoginPw()" title="Afficher/masquer">👁</button>
+      <button class="toggle-pw" onclick="toggleLoginPw()" title="Afficher/masquer">&#128065;</button>
     </div>
     <button class="login-btn" onclick="attemptLogin()">Se connecter</button>
     <div class="login-error" id="login-error"></div>
@@ -350,9 +373,30 @@ textarea{resize:vertical;min-height:100px;}
 
 <!-- ====== HEADER ====== -->
 <div class="hero">
-  <div class="bubbles" id="bubbles"></div>
   <div class="hero-content">
-    <div class="hero-logo">🏊</div>
+    <div class="hero-logo"><svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1976D2;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#2C5F8A;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 5 L90 20 L90 60 Q90 95 50 115 Q10 95 10 60 L10 20 Z" fill="url(#shieldGrad)" stroke="#c8a415" stroke-width="3"/>
+  <path d="M50 12 L83 24 L83 58 Q83 88 50 108 Q17 88 17 58 L17 24 Z" fill="#ffffff" stroke="none"/>
+  <path d="M20 65 Q30 58 40 65 Q50 72 60 65 Q70 58 80 65" fill="none" stroke="#1976D2" stroke-width="2" opacity="0.5"/>
+  <path d="M20 72 Q30 65 40 72 Q50 79 60 72 Q70 65 80 72" fill="none" stroke="#1976D2" stroke-width="1.5" opacity="0.3"/>
+  <ellipse cx="45" cy="52" rx="18" ry="4" fill="#1976D2" opacity="0.15"/>
+  <circle cx="32" cy="45" r="5" fill="#c8a415"/>
+  <path d="M37 46 L55 42" stroke="#c8a415" stroke-width="3" stroke-linecap="round"/>
+  <path d="M55 42 L62 35" stroke="#c8a415" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M37 48 L52 52" stroke="#c8a415" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M52 52 L60 56" stroke="#c8a415" stroke-width="2" stroke-linecap="round"/>
+  <path d="M60 56 L65 54" stroke="#c8a415" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M28 40 L24 36" stroke="#1976D2" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <path d="M30 38 L28 33" stroke="#1976D2" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <text x="50" y="90" text-anchor="middle" fill="#c8a415" font-family="Montserrat,sans-serif" font-weight="900" font-size="9" letter-spacing="2">NAGEONS</text>
+  <text x="50" y="100" text-anchor="middle" fill="#2C5F8A" font-family="Montserrat,sans-serif" font-weight="700" font-size="7" letter-spacing="1">YVERDON</text>
+</svg></div>
     <div><h1>Nageons Yverdon</h1><div class="subtitle">Évaluations natation — École primaire</div></div>
     <div class="hero-actions">
       <span id="role-badge-desktop"></span>
@@ -362,7 +406,6 @@ textarea{resize:vertical;min-height:100px;}
     </div>
   </div>
 </div>
-<div class="wave-container"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path fill="var(--ocean-50)" d="M0,25 C360,60 720,0 1080,35 C1260,48 1380,30 1440,25 L1440,60 L0,60 Z"/><path fill="var(--ocean-50)" opacity="0.5" d="M0,40 C280,18 560,55 840,30 C1020,18 1300,50 1440,35 L1440,60 L0,60 Z"/></svg></div>
 <div class="hero-actions-mobile no-print">
   <span id="role-badge-mobile" style="flex:0;"></span>
   <button class="btn btn-outline btn-sm admin-only" onclick="exportData()" style="flex:1;">Sauvegarder</button>
@@ -407,6 +450,47 @@ textarea{resize:vertical;min-height:100px;}
   </div>
   <div class="level-tabs" id="class-level-tabs"></div>
   <div id="classes-list"></div>
+  <div class="card" style="margin-top:16px;">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f0fdf4;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg></div>
+      <div><h2>Sauvegarde des données</h2></div>
+    </div>
+    <p style="font-size:0.84rem;color:var(--text-secondary);font-weight:600;margin-bottom:14px;">Pour utiliser l'application sur plusieurs appareils (ex. ordinateur ↔ téléphone), exportez les données sur un appareil puis importez-les sur l'autre.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="exportData()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg>
+        Exporter les données
+      </button>
+      <button class="btn btn-outline" onclick="document.getElementById('import-data-input').click()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg>
+        Importer les données
+      </button>
+      <input type="file" id="import-data-input" accept=".json" style="display:none;" onchange="importData(this)">
+    </div>
+  </div>
+  <div class="card admin-only" style="margin-top:16px;">
+    <div class="card-header">
+      <div class="card-icon" style="background:#eff6ff;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <div>
+        <h2>Synchronisation entre appareils</h2>
+        <div id="firebase-status"><span style="color:#9ca3af;font-weight:700;font-size:0.82rem;">● Non configuré</span></div>
+      </div>
+    </div>
+    <p style="font-size:0.84rem;color:var(--text-secondary);font-weight:600;margin-bottom:14px;">Connectez Firebase (gratuit) pour que vos données soient automatiquement disponibles sur tous vos appareils sans manipulation.</p>
+    <textarea id="firebase-config-input" rows="6"
+      style="width:100%;box-sizing:border-box;font-family:monospace;font-size:0.78rem;padding:10px;border:1.5px solid var(--gray-300);border-radius:8px;resize:vertical;color:var(--text);"
+      placeholder='Collez ici votre configuration Firebase, par exemple :&#10;{&#10;  "apiKey": "AIzaSy...",&#10;  "authDomain": "mon-projet.firebaseapp.com",&#10;  "databaseURL": "https://mon-projet-default-rtdb.europe-west1.firebasedatabase.app",&#10;  "projectId": "mon-projet",&#10;  "storageBucket": "mon-projet.appspot.com",&#10;  "messagingSenderId": "123456789",&#10;  "appId": "1:123:web:abc"&#10;}'></textarea>
+    <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="saveFirebaseConfig()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Connecter Firebase
+      </button>
+      <button class="btn btn-outline" onclick="syncFromFirebase(true)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Synchroniser maintenant
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- ====== PAGE CRITERES ====== -->
@@ -421,7 +505,9 @@ textarea{resize:vertical;min-height:100px;}
   <div class="level-tabs" id="criteria-level-tabs"></div>
   <div class="card">
     <div class="input-row">
-      <input type="text" id="new-criteria-name" placeholder="Nouveau critère (ex: Faire des bulles)">
+      <input type="text" id="new-criteria-name" placeholder="Nouveau critère (ex: Faire des bulles)" style="flex:2;">
+      <input type="text" id="new-criteria-category" placeholder="Catégorie (ex: Immersion)" list="category-suggestions" style="flex:1;">
+      <datalist id="category-suggestions"></datalist>
       <button class="btn btn-primary" onclick="addCriteria()"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Ajouter</button>
     </div>
   </div>
@@ -448,6 +534,8 @@ textarea{resize:vertical;min-height:100px;}
       <div style="display:flex;gap:6px;">
         <button class="btn btn-outline btn-sm" onclick="printEvaluation()">Imprimer</button>
         <button class="btn btn-outline btn-sm" onclick="exportCSV()">Export CSV</button>
+        <button class="btn btn-primary btn-sm" onclick="openPdfModal()">&#128196; Générer PDF</button>
+        <button class="btn btn-primary btn-sm" onclick="openWordModal()" style="background:var(--teal-500,#0d9488);">&#128221; Générer Word</button>
       </div>
     </div>
     <div id="eval-filter-bar" class="eval-filter-bar" style="margin-top:14px;"></div>
@@ -512,9 +600,9 @@ textarea{resize:vertical;min-height:100px;}
       <label>Sexe</label>
       <div class="gender-select">
         <input type="radio" class="gender-radio" name="add-gender" id="add-gender-f" value="F">
-        <label for="add-gender-f" class="gender-label girl-label">♀ Fille</label>
+        <label for="add-gender-f" class="gender-label girl-label">&#9792; Fille</label>
         <input type="radio" class="gender-radio" name="add-gender" id="add-gender-g" value="G" checked>
-        <label for="add-gender-g" class="gender-label boy-label">♂ Garçon</label>
+        <label for="add-gender-g" class="gender-label boy-label">&#9794; Garçon</label>
       </div>
     </div>
     <div style="margin-bottom:14px;">
@@ -537,9 +625,9 @@ textarea{resize:vertical;min-height:100px;}
     <p id="edit-gender-name" style="font-weight:700;margin-bottom:14px;"></p>
     <div class="gender-select">
       <input type="radio" class="gender-radio" name="edit-gender" id="edit-gender-f" value="F">
-      <label for="edit-gender-f" class="gender-label girl-label">♀ Fille</label>
+      <label for="edit-gender-f" class="gender-label girl-label">&#9792; Fille</label>
       <input type="radio" class="gender-radio" name="edit-gender" id="edit-gender-g" value="G">
-      <label for="edit-gender-g" class="gender-label boy-label">♂ Garçon</label>
+      <label for="edit-gender-g" class="gender-label boy-label">&#9794; Garçon</label>
     </div>
     <div class="btn-group">
       <button class="btn btn-ghost" onclick="closeModal('modal-edit-gender')">Annuler</button>
@@ -548,10 +636,63 @@ textarea{resize:vertical;min-height:100px;}
   </div>
 </div>
 
+<div class="modal-overlay" id="modal-word">
+  <div class="modal" style="max-width:520px;">
+    <h3>&#128221; Générer les fiches Word</h3>
+    <p id="word-class-info" style="font-weight:700;margin-bottom:6px;color:var(--primary);"></p>
+    <p id="word-criteria-info" style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:14px;"></p>
+    <div id="word-pool-warning" style="display:none;background:#fff3e0;border:1px solid #ffb74d;border-radius:6px;padding:10px;margin-bottom:12px;font-size:0.82rem;color:#e65100;font-weight:600;"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;padding:8px 12px;background:var(--gray-50);border-radius:6px;font-size:0.8rem;font-weight:700;">
+      <span style="color:var(--gray-500);margin-right:4px;">Marqueurs :</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">X</span>Réussi</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">/</span>Entraîné</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">O</span>Absent</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">-</span>Non essayé</span>
+    </div>
+    <label>Template Word (.docx) avec les balises &#123;prenom&#125; &#123;classe&#125; &#123;c1&#125;…</label>
+    <input type="file" id="word-template-file" accept=".docx" style="margin-bottom:14px;">
+    <div id="word-progress" style="display:none;margin-bottom:12px;">
+      <div style="font-size:0.82rem;font-weight:700;margin-bottom:4px;" id="word-progress-text">Génération en cours...</div>
+      <div class="progress-bar"><div class="progress-fill" id="word-progress-bar" style="width:0%"></div></div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-ghost" onclick="closeModal('modal-word')">Annuler</button>
+      <button class="btn btn-primary" id="btn-generate-word" onclick="generateWord()" style="background:var(--teal-500,#0d9488);">Générer ZIP</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-pdf">
+  <div class="modal" style="max-width:520px;">
+    <h3>&#128196; Générer les fiches PDF</h3>
+    <p id="pdf-class-info" style="font-weight:700;margin-bottom:6px;color:var(--primary);"></p>
+    <p id="pdf-criteria-info" style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:14px;"></p>
+    <div id="pdf-pool-warning" style="display:none;background:#fff3e0;border:1px solid #ffb74d;border-radius:6px;padding:10px;margin-bottom:12px;font-size:0.82rem;color:#e65100;font-weight:600;"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;padding:8px 12px;background:var(--gray-50);border-radius:6px;font-size:0.8rem;font-weight:700;">
+      <span style="color:var(--gray-500);margin-right:4px;">Marqueurs PDF :</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">X</span>Réussi</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">/</span>Entraîné</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">O</span>Absent</span>
+      <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">-</span>Non essayé</span>
+    </div>
+    <label>Template PDF (fourni par le canton)</label>
+    <input type="file" id="pdf-template-file" accept=".pdf" style="margin-bottom:14px;">
+    <div id="pdf-mapping-preview" style="max-height:200px;overflow-y:auto;margin-bottom:14px;font-size:0.78rem;border:1px solid var(--gray-300);border-radius:6px;padding:8px;display:none;"></div>
+    <div id="pdf-progress" style="display:none;margin-bottom:12px;">
+      <div style="font-size:0.82rem;font-weight:700;margin-bottom:4px;" id="pdf-progress-text">Génération en cours...</div>
+      <div class="progress-bar"><div class="progress-fill" id="pdf-progress-bar" style="width:0%"></div></div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-ghost" onclick="closeModal('modal-pdf')">Annuler</button>
+      <button class="btn btn-primary" id="btn-generate-pdf" onclick="generatePdf()">Générer</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
+<footer style="background:var(--primary-light);color:var(--primary);text-align:center;padding:16px;font-size:0.78rem;font-weight:600;font-family:'Montserrat',sans-serif;letter-spacing:0.5px;border-top:1px solid var(--gray-300);">Nageons Yverdon &copy; 2026 — École primaire d'Yverdon</footer>
 </div><!-- end #app-container -->
-
 <script>
 // ===================== AUTH =====================
 let currentRole = null; // 'admin' | 'visitor'
@@ -587,23 +728,21 @@ function attemptLogin(){
 }
 
 function logout(){
+  saveData();
   currentRole=null;
   document.getElementById('login-overlay').style.display='';
   document.getElementById('login-overlay').classList.remove('hidden');
   document.getElementById('app-container').style.display='none';
   document.getElementById('login-password').value='';
   document.getElementById('login-error').textContent='';
-  // Reset to eval page for next login
   showPage('evaluations');
 }
 
 function applyRole(){
   const isAdmin=currentRole==='admin';
-  // Show/hide admin-only elements
   document.querySelectorAll('.admin-only').forEach(el=>{
     el.style.display=isAdmin?'':'none';
   });
-  // Role badge
   const badgeHtml=isAdmin
     ?'<span class="login-role-badge role-admin"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Admin</span>'
     :'<span class="login-role-badge role-visitor"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Visiteur</span>';
@@ -611,7 +750,6 @@ function applyRole(){
   const bm=document.getElementById('role-badge-mobile');
   if(bd)bd.innerHTML=badgeHtml;
   if(bm)bm.innerHTML=badgeHtml;
-  // Default page based on role
   if(isAdmin){
     showPage('classes');
   } else {
@@ -623,11 +761,11 @@ function applyRole(){
 const LEVELS = ['2P','3P','4P','5P','6P'];
 
 let data = {
-  classes: [],        // { id, level, name, fullName, students: [{ id, name, pool:'PB'|'GB', gender:'F'|'G' }] }
-  criteria: {},       // { "2P": [{id, name}], "3P": [...], ... }
-  evals: {},          // "classId-studentId-criteriaId": "R"|"E"|"A"|"N"
-  attendance: {},     // "classId-studentId-date": "P"|"A"|"D"
-  lessonDates: {}     // "classId": ["2026-01-15","2026-01-22",...]
+  classes: [],
+  criteria: {},
+  evals: {},
+  attendance: {},
+  lessonDates: {}
 };
 LEVELS.forEach(l => { if (!data.criteria[l]) data.criteria[l] = []; });
 
@@ -635,9 +773,10 @@ let currentImportClassId = null;
 let csvImportedNames = [];
 let activeClassLevel = '2P';
 let activeCriteriaLevel = '2P';
-let activeEvalPool = 'PB';
-let evalSortMode = 'alpha'; // 'alpha' | 'gender'
-let evalFilterGender = 'all'; // 'all' | 'F' | 'G'
+let activeEvalPool = 'ALL';
+let evalSortMode = 'alpha';
+let evalFilterGender = 'all';
+let activeEvalCategory = 'all';
 
 const PRESETS = [
   "Faire des bulles","Mettre la tête sous l'eau","Ouvrir les yeux sous l'eau",
@@ -648,11 +787,145 @@ const PRESETS = [
   "Passer sous un obstacle","Aller chercher un objet au fond","Nager 25m sans aide"
 ];
 
+// ===================== AUTO-SAVE =====================
+let db = null;
+
+function saveData(){
+  try{ localStorage.setItem('nageons-yverdon-data', JSON.stringify(data)); }catch(e){}
+  if(db){
+    db.ref('nageons-data').set(data).catch(e=>console.error('Firebase save error:',e));
+  }
+}
+
+function initFirebase(){
+  if(typeof firebase==='undefined') return;
+  const cfgStr=localStorage.getItem('nageons-firebase-config');
+  if(!cfgStr){ updateFirebaseStatus('none'); return; }
+  try{
+    const cfg=JSON.parse(cfgStr);
+    if(!firebase.apps.length) firebase.initializeApp(cfg);
+    db=firebase.database();
+    updateFirebaseStatus('connected');
+    syncFromFirebase(false);
+  }catch(e){
+    console.error('Firebase init error:',e);
+    db=null;
+    updateFirebaseStatus('error');
+  }
+}
+
+function syncFromFirebase(showToast){
+  if(!db){ if(showToast!==false) toast('Firebase non configuré'); return; }
+  db.ref('nageons-data').once('value').then(snapshot=>{
+    const remote=snapshot.val();
+    if(remote&&remote.classes){
+      data=migrateData(remote);
+      try{ localStorage.setItem('nageons-yverdon-data',JSON.stringify(data)); }catch(e){}
+      renderAll();
+      if(showToast!==false) toast('Synchronisé depuis Firebase ✓');
+    } else {
+      if(data.classes.length>0){
+        db.ref('nageons-data').set(data);
+        if(showToast!==false) toast('Données envoyées vers Firebase ✓');
+      }
+    }
+  }).catch(e=>{
+    if(showToast!==false) toast('Erreur de synchronisation — vérifiez la configuration');
+    updateFirebaseStatus('error');
+    console.error(e);
+  });
+}
+
+function saveFirebaseConfig(){
+  const input=document.getElementById('firebase-config-input').value.trim();
+  if(!input){ toast('Collez votre configuration Firebase'); return; }
+  try{
+    JSON.parse(input);
+    localStorage.setItem('nageons-firebase-config',input);
+    toast('Configuration sauvegardée — rechargement en cours…');
+    setTimeout(()=>location.reload(),1200);
+  }catch(e){
+    toast('JSON invalide — vérifiez la configuration');
+  }
+}
+
+function updateFirebaseStatus(state){
+  const el=document.getElementById('firebase-status');
+  if(!el) return;
+  if(state==='connected') el.innerHTML='<span style="color:#16a34a;font-weight:700;font-size:0.82rem;">● Connecté et synchronisé</span>';
+  else if(state==='error') el.innerHTML='<span style="color:#dc2626;font-weight:700;font-size:0.82rem;">● Erreur de connexion</span>';
+  else el.innerHTML='<span style="color:#9ca3af;font-weight:700;font-size:0.82rem;">● Non configuré</span>';
+}
+
+function exportData(){
+  const json=JSON.stringify(data,null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  const d=new Date();
+  const stamp=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  a.download='nageons-yverdon-'+stamp+'.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('Données exportées ✓');
+}
+
+function importData(input){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const parsed=JSON.parse(e.target.result);
+      if(parsed&&parsed.classes){
+        data=migrateData(parsed);
+        saveData();
+        renderClasses();
+        renderCriteria();
+        loadEvaluation();
+        toast('Données importées avec succès ✓');
+      }else{
+        toast('Fichier invalide — vérifiez qu\'il s\'agit bien d\'un export Nageons Yverdon');
+      }
+    }catch(err){
+      toast('Erreur lors de l\'import du fichier');
+    }
+    input.value='';
+  };
+  reader.readAsText(file);
+}
+
+function migrateData(d){
+  if(!d.evals)d.evals={};
+  if(!d.attendance)d.attendance={};
+  if(!d.lessonDates)d.lessonDates={};
+  if(!d.criteria||Array.isArray(d.criteria)){
+    const oldCriteria=Array.isArray(d.criteria)?d.criteria:[];
+    d.criteria={};
+    LEVELS.forEach(l=>{d.criteria[l]=[...oldCriteria];});
+  }
+  LEVELS.forEach(l=>{if(!d.criteria[l])d.criteria[l]=[];});
+  if(d.classes){
+    d.classes.forEach(cls=>{
+      cls.students.forEach(s=>{
+        if(!s.pool)s.pool='PB';
+        if(!s.gender)s.gender='';
+      });
+      if(!cls.level)cls.level='2P';
+      if(!cls.fullName)cls.fullName=(cls.level||'2P')+cls.name;
+    });
+  }
+  return d;
+}
+
 // ===================== UTILS =====================
 function uid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,5);}
 function escHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 function escAttr(s){return s.replace(/'/g,"\\'").replace(/"/g,'&quot;');}
-function toast(msg){const t=document.getElementById('toast');t.textContent='✓ '+msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 function avatarClass(i){return 'av-'+((i%8)+1);}
 function initial(name){return name.charAt(0).toUpperCase();}
 
@@ -680,7 +953,7 @@ function renderClassLevelTabs(){
   if(levelsWithClasses.length===0){c.innerHTML='';return;}
   c.innerHTML=LEVELS.map(l=>{
     const count=data.classes.filter(cl=>cl.level===l).length;
-    return `<button class="level-tab ${l===activeClassLevel?'active':''}" onclick="activeClassLevel='${l}';renderClassLevelTabs();renderClasses();">${l} ${count?'('+count+')':''}</button>`;
+    return '<button class="level-tab '+(l===activeClassLevel?'active':'')+'" onclick="activeClassLevel=\''+l+'\';renderClassLevelTabs();renderClasses();">'+l+' '+(count?'('+count+')':'')+'</button>';
   }).join('');
 }
 
@@ -688,7 +961,7 @@ function renderCriteriaLevelTabs(){
   const c=document.getElementById('criteria-level-tabs');
   c.innerHTML=LEVELS.map(l=>{
     const count=(data.criteria[l]||[]).length;
-    return `<button class="level-tab ${l===activeCriteriaLevel?'active':''}" onclick="activeCriteriaLevel='${l}';renderCriteriaLevelTabs();renderCriteria();">${l} ${count?'('+count+')':''}</button>`;
+    return '<button class="level-tab '+(l===activeCriteriaLevel?'active':'')+'" onclick="activeCriteriaLevel=\''+l+'\';renderCriteriaLevelTabs();renderCriteria();">'+l+' '+(count?'('+count+')':'')+'</button>';
   }).join('');
 }
 
@@ -703,6 +976,7 @@ function addClass(){
   nameInput.value='';
   activeClassLevel=level;
   renderClassLevelTabs();renderClasses();
+  saveData();
   toast('Classe « '+fullName+' » créée');
 }
 
@@ -712,7 +986,9 @@ function deleteClass(id){
   Object.keys(data.evals).forEach(k=>{if(k.startsWith(id+'-'))delete data.evals[k];});
   Object.keys(data.attendance).forEach(k=>{if(k.startsWith(id+'-'))delete data.attendance[k];});
   if(data.lessonDates)delete data.lessonDates[id];
-  renderClassLevelTabs();renderClasses();toast('Classe supprimée');
+  renderClassLevelTabs();renderClasses();
+  saveData();
+  toast('Classe supprimée');
 }
 
 function deleteStudent(classId,studentId){
@@ -720,16 +996,19 @@ function deleteStudent(classId,studentId){
   cls.students=cls.students.filter(s=>s.id!==studentId);
   Object.keys(data.evals).forEach(k=>{if(k.includes(studentId))delete data.evals[k];});
   Object.keys(data.attendance).forEach(k=>{if(k.includes(studentId))delete data.attendance[k];});
-  renderClasses();toast('Élève retiré');
+  renderClasses();
+  saveData();
+  toast('Élève retiré');
 }
 
 function togglePool(classId,studentId,fromPage){
   const cls=data.classes.find(c=>c.id===classId);if(!cls)return;
   const s=cls.students.find(st=>st.id===studentId);if(!s)return;
   s.pool=s.pool==='PB'?'GB':'PB';
-  const msg=s.name+' → '+(s.pool==='PB'?'Petit bassin':'Grand bassin');
+  const msg=s.name+' -> '+(s.pool==='PB'?'Petit bassin':'Grand bassin');
   if(fromPage==='appel'){loadAttendance();}
   else{renderClasses();}
+  saveData();
   toast(msg);
 }
 
@@ -754,7 +1033,9 @@ function confirmAddStudent(){
   const cls=data.classes.find(c=>c.id===currentImportClassId);if(!cls)return;
   cls.students.push({id:uid(),name,pool,gender});
   cls.students.sort((a,b)=>a.name.localeCompare(b.name,'fr'));
-  closeModal('modal-add-student');renderClasses();toast('Élève ajouté');
+  closeModal('modal-add-student');renderClasses();
+  saveData();
+  toast('Élève ajouté');
 }
 
 let editGenderClassId=null,editGenderStudentId=null;
@@ -771,7 +1052,9 @@ function confirmEditGender(){
   const cls=data.classes.find(c=>c.id===editGenderClassId);if(!cls)return;
   const s=cls.students.find(st=>st.id===editGenderStudentId);if(!s)return;
   s.gender=document.querySelector('input[name="edit-gender"]:checked').value;
-  closeModal('modal-edit-gender');renderClasses();toast(s.name+' → '+(s.gender==='F'?'Fille':'Garçon'));
+  closeModal('modal-edit-gender');renderClasses();
+  saveData();
+  toast(s.name+' -> '+(s.gender==='F'?'Fille':'Garçon'));
 }
 
 function handleCSVImport(event){
@@ -781,13 +1064,12 @@ function handleCSVImport(event){
     const text=e.target.result;
     const names=text.split(/[\r\n,;]+/).map(n=>n.trim().replace(/^["']|["']$/g,'')).filter(n=>n.length>0);
     csvImportedNames=names;
-    document.getElementById('csv-status').textContent='✓ '+names.length+' prénom(s) trouvé(s)';
+    document.getElementById('csv-status').textContent=''+names.length+' prénom(s) trouvé(s)';
   };
   reader.readAsText(file,'UTF-8');
 }
 
 function parseNameGender(line){
-  // Accepts "Prénom,F" or "Prénom,G" or "Prénom;F" or just "Prénom"
   const parts=line.split(/[,;]\s*/);
   const name=parts[0].trim();
   let gender='';
@@ -820,45 +1102,47 @@ function confirmImport(){
     }
   });
   cls.students.sort((a,b)=>a.name.localeCompare(b.name,'fr'));
-  closeModal('modal-import');renderClasses();toast(added+' élève(s) importé(s)');
+  closeModal('modal-import');renderClasses();
+  saveData();
+  toast(added+' élève(s) importé(s)');
 }
 
 function renderClasses(){
   const container=document.getElementById('classes-list');
   const filtered=data.classes.filter(c=>c.level===activeClassLevel);
   if(filtered.length===0){
-    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">🏫</div><p>Aucune classe en '+activeClassLevel+'</p><p class="hint">Créez une classe ci-dessus</p></div></div>';
+    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">&#127979;</div><p>Aucune classe en '+activeClassLevel+'</p><p class="hint">Créez une classe ci-dessus</p></div></div>';
     return;
   }
   container.innerHTML=filtered.map(cls=>{
     const pbStudents=cls.students.filter(s=>s.pool==='PB');
     const gbStudents=cls.students.filter(s=>s.pool==='GB');
-    return `<div class="card">
-      <div class="card-header">
-        <div class="card-icon blue"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div style="flex:1;">
-          <h2>${escHtml(cls.fullName)} <span class="badge badge-blue">${cls.students.length} élève${cls.students.length>1?'s':''}</span></h2>
-        </div>
-      </div>
-      <div class="btn-group" style="margin-bottom:14px;margin-top:-8px;">
-        <button class="btn btn-primary btn-sm" onclick="openAddStudentModal('${cls.id}')">+ Ajouter</button>
-        <button class="btn btn-outline btn-sm" onclick="openImportModal('${cls.id}')">Importer</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteClass('${cls.id}')">Supprimer</button>
-      </div>
-      ${pbStudents.length>0?`
-        <div style="font-size:0.82rem;font-weight:800;color:var(--pb-color);margin:10px 0 6px;display:flex;align-items:center;gap:6px;">
-          <span class="badge badge-pb">PB</span> Petit bassin (${pbStudents.length})
-        </div>
-        <ul class="student-list">${pbStudents.map((s,i)=>studentRow(cls.id,s,i)).join('')}</ul>
-      `:''}
-      ${gbStudents.length>0?`
-        <div style="font-size:0.82rem;font-weight:800;color:var(--gb-color);margin:10px 0 6px;display:flex;align-items:center;gap:6px;">
-          <span class="badge badge-gb">GB</span> Grand bassin (${gbStudents.length})
-        </div>
-        <ul class="student-list">${gbStudents.map((s,i)=>studentRow(cls.id,s,i+pbStudents.length)).join('')}</ul>
-      `:''}
-      ${cls.students.length===0?'<div class="empty" style="padding:20px;"><p class="hint">Aucun élève — ajoutez-en ou importez une liste</p></div>':''}
-    </div>`;
+    return '<div class="card">'+
+      '<div class="card-header">'+
+        '<div class="card-icon blue"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>'+
+        '<div style="flex:1;">'+
+          '<h2>'+escHtml(cls.fullName)+' <span class="badge badge-blue">'+cls.students.length+' élève'+(cls.students.length>1?'s':'')+'</span></h2>'+
+        '</div>'+
+      '</div>'+
+      '<div class="btn-group" style="margin-bottom:14px;margin-top:-8px;">'+
+        '<button class="btn btn-primary btn-sm" onclick="openAddStudentModal(\''+cls.id+'\')">+ Ajouter</button>'+
+        '<button class="btn btn-outline btn-sm" onclick="openImportModal(\''+cls.id+'\')">Importer</button>'+
+        '<button class="btn btn-danger btn-sm" onclick="deleteClass(\''+cls.id+'\')">Supprimer</button>'+
+      '</div>'+
+      (pbStudents.length>0?
+        '<div style="font-size:0.82rem;font-weight:800;color:var(--pb-color);margin:10px 0 6px;display:flex;align-items:center;gap:6px;">'+
+          '<span class="badge badge-pb">PB</span> Petit bassin ('+pbStudents.length+')'+
+        '</div>'+
+        '<ul class="student-list">'+pbStudents.map((s,i)=>studentRow(cls.id,s,i)).join('')+'</ul>'
+      :'')+
+      (gbStudents.length>0?
+        '<div style="font-size:0.82rem;font-weight:800;color:var(--gb-color);margin:10px 0 6px;display:flex;align-items:center;gap:6px;">'+
+          '<span class="badge badge-gb">GB</span> Grand bassin ('+gbStudents.length+')'+
+        '</div>'+
+        '<ul class="student-list">'+gbStudents.map((s,i)=>studentRow(cls.id,s,i+pbStudents.length)).join('')+'</ul>'
+      :'')+
+      (cls.students.length===0?'<div class="empty" style="padding:20px;"><p class="hint">Aucun élève — ajoutez-en ou importez une liste</p></div>':'')+
+    '</div>';
   }).join('');
 }
 
@@ -868,8 +1152,8 @@ function genderAvatarClass(s,i){
   return avatarClass(i);
 }
 function genderTag(s){
-  if(s.gender==='F')return '<span class="gender-tag girl">♀</span>';
-  if(s.gender==='G')return '<span class="gender-tag boy">♂</span>';
+  if(s.gender==='F')return '<span class="gender-tag girl">&#9792;</span>';
+  if(s.gender==='G')return '<span class="gender-tag boy">&#9794;</span>';
   return '';
 }
 function genderBorderStyle(s){
@@ -879,71 +1163,95 @@ function genderBorderStyle(s){
 }
 
 function studentRow(classId,s,i){
-  return `<li class="student-item" style="${genderBorderStyle(s)}">
-    <div class="student-avatar ${genderAvatarClass(s,i)}">${initial(s.name)}</div>
-    <span class="student-name">${escHtml(s.name)}${genderTag(s)}</span>
-    <span class="student-pool ${s.pool.toLowerCase()}">${s.pool}</span>
-    <div class="student-actions">
-      <button class="btn btn-ghost btn-xs" onclick="openEditGenderModal('${classId}','${s.id}')" title="Modifier sexe" style="font-size:0.75rem;">⚤</button>
-      <button class="btn btn-danger btn-xs" onclick="deleteStudent('${classId}','${s.id}')" title="Retirer">✕</button>
-    </div>
-  </li>`;
+  return '<li class="student-item" style="'+genderBorderStyle(s)+'">'+
+    '<div class="student-avatar '+genderAvatarClass(s,i)+'">'+initial(s.name)+'</div>'+
+    '<span class="student-name">'+escHtml(s.name)+genderTag(s)+'</span>'+
+    '<span class="student-pool '+s.pool.toLowerCase()+'">'+s.pool+'</span>'+
+    '<div class="student-actions">'+
+      '<button class="btn btn-ghost btn-xs" onclick="openEditGenderModal(\''+classId+'\',\''+s.id+'\')" title="Modifier sexe" style="font-size:0.75rem;">&#9894;</button>'+
+      '<button class="btn btn-danger btn-xs" onclick="deleteStudent(\''+classId+'\',\''+s.id+'\')" title="Retirer">&#10005;</button>'+
+    '</div>'+
+  '</li>';
 }
 
 // ===================== CRITERIA =====================
 function addCriteria(){
   const input=document.getElementById('new-criteria-name');
+  const catInput=document.getElementById('new-criteria-category');
   const name=input.value.trim();if(!name){toast('Veuillez entrer un critère');return;}
+  const category=(catInput?catInput.value.trim():'');
   const lv=activeCriteriaLevel;
   if(!data.criteria[lv])data.criteria[lv]=[];
   if(data.criteria[lv].some(c=>c.name.toLowerCase()===name.toLowerCase())){toast('Ce critère existe déjà pour '+lv);return;}
-  data.criteria[lv].push({id:uid(),name});input.value='';
-  renderCriteriaLevelTabs();renderCriteria();toast('Critère ajouté en '+lv);
+  data.criteria[lv].push({id:uid(),name,category});
+  input.value='';if(catInput)catInput.value='';
+  renderCriteriaLevelTabs();renderCriteria();
+  saveData();
+  toast('Critère ajouté en '+lv);
 }
 function addPreset(name){
   const lv=activeCriteriaLevel;if(!data.criteria[lv])data.criteria[lv]=[];
   if(data.criteria[lv].some(c=>c.name.toLowerCase()===name.toLowerCase())){toast('Ce critère existe déjà');return;}
-  data.criteria[lv].push({id:uid(),name});renderCriteriaLevelTabs();renderCriteria();toast('Critère ajouté en '+lv);
+  data.criteria[lv].push({id:uid(),name,category:''});renderCriteriaLevelTabs();renderCriteria();
+  saveData();
+  toast('Critère ajouté en '+lv);
+}
+function setCriteriaCategory(id, cat) {
+  const lv=activeCriteriaLevel;
+  const cr=(data.criteria[lv]||[]).find(c=>c.id===id);
+  if(cr){cr.category=cat;saveData();renderCriteria();}
 }
 function deleteCriteria(id){
   const lv=activeCriteriaLevel;
   data.criteria[lv]=data.criteria[lv].filter(c=>c.id!==id);
   Object.keys(data.evals).forEach(k=>{if(k.endsWith('-'+id))delete data.evals[k];});
-  renderCriteriaLevelTabs();renderCriteria();toast('Critère supprimé');
+  renderCriteriaLevelTabs();renderCriteria();
+  saveData();
+  toast('Critère supprimé');
 }
 function moveCriteria(id,dir){
   const arr=data.criteria[activeCriteriaLevel];
   const idx=arr.findIndex(c=>c.id===id);const newIdx=idx+dir;
   if(newIdx<0||newIdx>=arr.length)return;
   [arr[idx],arr[newIdx]]=[arr[newIdx],arr[idx]];renderCriteria();
+  saveData();
 }
 
 function renderCriteria(){
   const lv=activeCriteriaLevel;const list=data.criteria[lv]||[];
   const container=document.getElementById('criteria-list');
   if(list.length===0){
-    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">🎯</div><p>Aucun critère pour '+lv+'</p><p class="hint">Ajoutez-en ci-dessus ou utilisez les prédéfinis</p></div></div>';
+    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">&#127919;</div><p>Aucun critère pour '+lv+'</p><p class="hint">Ajoutez-en ci-dessus ou utilisez les prédéfinis</p></div></div>';
   } else {
-    container.innerHTML=`<div class="card">
-      <div class="card-header">
-        <div class="card-icon teal"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
-        <div><h2>Critères ${lv} <span class="badge badge-blue">${list.length}</span></h2></div>
-      </div>
-      ${list.map((c,i)=>`<div class="criteria-item">
-        <div class="criteria-num">${i+1}</div>
-        <span class="criteria-name">${escHtml(c.name)}</span>
-        <div class="criteria-actions">
-          <button class="arrow-btn" onclick="moveCriteria('${c.id}',-1)" ${i===0?'disabled':''} title="Monter"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
-          <button class="arrow-btn" onclick="moveCriteria('${c.id}',1)" ${i===list.length-1?'disabled':''} title="Descendre"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-          <button class="arrow-btn" onclick="deleteCriteria('${c.id}')" title="Supprimer" style="color:var(--red-500);"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-        </div>
-      </div>`).join('')}
-    </div>`;
+    container.innerHTML='<div class="card">'+
+      '<div class="card-header">'+
+        '<div class="card-icon teal"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>'+
+        '<div><h2>Critères '+lv+' <span class="badge badge-blue">'+list.length+'</span></h2></div>'+
+      '</div>'+
+      list.map((c,i)=>'<div class="criteria-item">'+
+        '<div class="criteria-num">'+(i+1)+'</div>'+
+        '<div style="flex:1;min-width:0;">'+
+          '<span class="criteria-name">'+escHtml(c.name)+'</span>'+
+          (c.category?'<span style="margin-left:8px;font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:10px;background:var(--primary-light);color:var(--primary);">'+escHtml(c.category)+'</span>':'')+
+        '</div>'+
+        '<div class="criteria-actions" style="align-items:center;gap:4px;">'+
+          '<input type="text" value="'+escAttr(c.category||'')+'" placeholder="Catégorie" list="category-suggestions" style="width:120px;font-size:0.75rem;padding:3px 6px;border:1px solid var(--gray-300);border-radius:4px;" onchange="setCriteriaCategory(\''+c.id+'\',this.value)" onblur="setCriteriaCategory(\''+c.id+'\',this.value)">'+
+          '<button class="arrow-btn" onclick="moveCriteria(\''+c.id+'\',-1)" '+(i===0?'disabled':'')+' title="Monter"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>'+
+          '<button class="arrow-btn" onclick="moveCriteria(\''+c.id+'\',1)" '+(i===list.length-1?'disabled':'')+' title="Descendre"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>'+
+          '<button class="arrow-btn" onclick="deleteCriteria(\''+c.id+'\')" title="Supprimer" style="color:var(--red-500);"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'+
+        '</div>'+
+      '</div>').join('')+
+    '</div>';
   }
+  // Populate datalist with unique categories from all levels
+  const allCats=[...new Set(Object.values(data.criteria).flat().map(c=>c.category||'').filter(Boolean))];
+  const dl=document.getElementById('category-suggestions');
+  if(dl)dl.innerHTML=allCats.map(c=>'<option value="'+escAttr(c)+'">').join('');
+
   const pc=document.getElementById('preset-criteria');
   pc.innerHTML=PRESETS.map(p=>{
     const exists=list.some(c=>c.name.toLowerCase()===p.toLowerCase());
-    return `<button class="preset-btn ${exists?'added':''}" onclick="${exists?'':"addPreset('"+escAttr(p)+"')"}" ${exists?'disabled':''}><span class="preset-dot"></span>${exists?'✓ ':''}${escHtml(p)}</button>`;
+    return '<button class="preset-btn '+(exists?'added':'')+'" onclick="'+(exists?'':"addPreset('"+escAttr(p)+"')")+'" '+(exists?'disabled':'')+'><span class="preset-dot"></span>'+(exists?'&#10003; ':'')+escHtml(p)+'</button>';
   }).join('');
 }
 
@@ -954,12 +1262,13 @@ function refreshEvalClassSelect(){
     LEVELS.map(l=>{
       const cls=data.classes.filter(c=>c.level===l);
       if(cls.length===0)return '';
-      return `<optgroup label="${l}">${cls.map(c=>`<option value="${c.id}" ${c.id===cur?'selected':''}>${escHtml(c.fullName)} (${c.students.length})</option>`).join('')}</optgroup>`;
+      return '<optgroup label="'+l+'">'+cls.map(c=>'<option value="'+c.id+'" '+(c.id===cur?'selected':'')+'>'+escHtml(c.fullName)+' ('+c.students.length+')</option>').join('')+'</optgroup>';
     }).join('');
 }
 
 function setEvalSort(mode){evalSortMode=mode;loadEvaluation();}
 function setEvalFilterGender(g){evalFilterGender=g;loadEvaluation();}
+function setEvalCategory(cat){activeEvalCategory=cat;loadEvaluation();}
 
 function loadEvaluation(){
   const classId=document.getElementById('eval-class-select').value;
@@ -968,38 +1277,44 @@ function loadEvaluation(){
   const filterBar=document.getElementById('eval-filter-bar');
   if(!classId){container.innerHTML='';poolTabsDiv.innerHTML='';if(filterBar)filterBar.innerHTML='';return;}
   const cls=data.classes.find(c=>c.id===classId);if(!cls)return;
-  const criteria=data.criteria[cls.level]||[];
 
   const hasPB=cls.students.some(s=>s.pool==='PB');
   const hasGB=cls.students.some(s=>s.pool==='GB');
-  if(!hasPB&&hasGB)activeEvalPool='GB';
-  if(hasPB&&!hasGB)activeEvalPool='PB';
 
   if(hasPB&&hasGB){
-    poolTabsDiv.innerHTML=`<div class="pool-tabs" style="max-width:300px;margin-bottom:16px;">
-      <button class="pool-tab ${activeEvalPool==='PB'?'active-pb':''}" onclick="activeEvalPool='PB';loadEvaluation();">Petit bassin (PB)</button>
-      <button class="pool-tab ${activeEvalPool==='GB'?'active-gb':''}" onclick="activeEvalPool='GB';loadEvaluation();">Grand bassin (GB)</button>
-    </div>`;
+    poolTabsDiv.innerHTML='<div class="pool-tabs" style="max-width:450px;margin-bottom:16px;">'+
+      '<button class="pool-tab '+(activeEvalPool==='ALL'?'active-pb':'')+'" onclick="activeEvalPool=\'ALL\';loadEvaluation();">Tous</button>'+
+      '<button class="pool-tab '+(activeEvalPool==='PB'?'active-pb':'')+'" onclick="activeEvalPool=\'PB\';loadEvaluation();">Petit bassin (PB)</button>'+
+      '<button class="pool-tab '+(activeEvalPool==='GB'?'active-gb':'')+'" onclick="activeEvalPool=\'GB\';loadEvaluation();">Grand bassin (GB)</button>'+
+    '</div>';
   } else { poolTabsDiv.innerHTML=''; }
 
-  // Render filter bar
+  // Build category filter buttons from criteria
+  const allCriteria=data.criteria[cls.level]||[];
+  const categories=[...new Set(allCriteria.map(c=>c.category||'').filter(Boolean))];
+
   if(filterBar){
-    filterBar.innerHTML=`
-      <label style="font-weight:800;">Tri :</label>
-      <button class="filter-btn ${evalSortMode==='alpha'?'active':''}" onclick="setEvalSort('alpha')">A→Z Prénom</button>
-      <button class="filter-btn ${evalSortMode==='gender'?'active':''}" onclick="setEvalSort('gender')">♀♂ Sexe</button>
-      <span style="width:12px;"></span>
-      <label style="font-weight:800;">Filtre :</label>
-      <button class="filter-btn ${evalFilterGender==='all'?'active':''}" onclick="setEvalFilterGender('all')">Tous</button>
-      <button class="filter-btn ${evalFilterGender==='F'?'active-girl':''}" onclick="setEvalFilterGender('F')">♀ Filles</button>
-      <button class="filter-btn ${evalFilterGender==='G'?'active-boy':''}" onclick="setEvalFilterGender('G')">♂ Garçons</button>
-    `;
+    let catButtons='';
+    if(categories.length>0){
+      catButtons='<span style="width:12px;"></span>'+
+        '<label style="font-weight:800;">Catégorie :</label>'+
+        '<button class="filter-btn '+(activeEvalCategory==='all'?'active':'')+'" onclick="setEvalCategory(\'all\')">Toutes</button>'+
+        categories.map(cat=>'<button class="filter-btn '+(activeEvalCategory===cat?'active':'')+'" onclick="setEvalCategory(\''+escAttr(cat)+'\')">'+escHtml(cat)+'</button>').join('');
+    }
+    filterBar.innerHTML=
+      '<label style="font-weight:800;">Tri :</label>'+
+      '<button class="filter-btn '+(evalSortMode==='alpha'?'active':'')+'" onclick="setEvalSort(\'alpha\')">A->Z Prénom</button>'+
+      '<button class="filter-btn '+(evalSortMode==='gender'?'active':'')+'" onclick="setEvalSort(\'gender\')">&#9792;&#9794; Sexe</button>'+
+      '<span style="width:12px;"></span>'+
+      '<label style="font-weight:800;">Élèves :</label>'+
+      '<button class="filter-btn '+(evalFilterGender==='all'?'active':'')+'" onclick="setEvalFilterGender(\'all\')">Tous</button>'+
+      '<button class="filter-btn '+(evalFilterGender==='F'?'active-girl':'')+'" onclick="setEvalFilterGender(\'F\')">&#9792; Filles</button>'+
+      '<button class="filter-btn '+(evalFilterGender==='G'?'active-boy':'')+'" onclick="setEvalFilterGender(\'G\')">&#9794; Garçons</button>'+
+      catButtons;
   }
 
-  let students=cls.students.filter(s=>s.pool===activeEvalPool);
-  // Apply gender filter
+  let students=activeEvalPool==='ALL'?[...cls.students]:cls.students.filter(s=>s.pool===activeEvalPool);
   if(evalFilterGender!=='all'){students=students.filter(s=>s.gender===evalFilterGender);}
-  // Apply sort
   if(evalSortMode==='alpha'){
     students=[...students].sort((a,b)=>a.name.localeCompare(b.name,'fr'));
   } else if(evalSortMode==='gender'){
@@ -1011,58 +1326,77 @@ function loadEvaluation(){
     });
   }
   if(students.length===0){
-    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">👤</div><p>Aucun élève en '+(activeEvalPool==='PB'?'Petit bassin':'Grand bassin')+'</p></div></div>';
+    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">&#128100;</div><p>Aucun élève '+(activeEvalPool==='ALL'?'dans cette classe':'en '+(activeEvalPool==='PB'?'Petit bassin':'Grand bassin'))+'</p></div></div>';
     return;
   }
-  if(criteria.length===0){
-    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">🎯</div><p>Aucun critère pour '+cls.level+'</p><p class="hint">Ajoutez des critères dans l\'onglet Critères</p></div></div>';
+  if(allCriteria.length===0){
+    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">&#127919;</div><p>Aucun critère pour '+cls.level+'</p><p class="hint">Ajoutez des critères dans l\'onglet Critères</p></div></div>';
     return;
   }
+
+  // Filter criteria by selected category
+  const criteria = activeEvalCategory==='all' ? allCriteria : allCriteria.filter(cr=>(cr.category||'')=== activeEvalCategory);
 
   let stats={R:0,E:0,A:0,N:0,total:0};
-  students.forEach(s=>{criteria.forEach(cr=>{const v=data.evals[classId+'-'+s.id+'-'+cr.id];if(v){stats[v]++;stats.total++;}});});
-  const totalCells=students.length*criteria.length;
+  students.forEach(s=>{allCriteria.forEach(cr=>{const v=data.evals[classId+'-'+s.id+'-'+cr.id];if(v){stats[v]++;stats.total++;}});});
+  const totalCells=students.length*allCriteria.length;
   const pct=totalCells>0?Math.round(stats.total/totalCells*100):0;
-  const poolName=activeEvalPool==='PB'?'Petit bassin':'Grand bassin';
+  const poolName=activeEvalPool==='ALL'?'Tous les bassins':activeEvalPool==='PB'?'Petit bassin':'Grand bassin';
 
-  container.innerHTML=`
-    <div class="print-header"><h1>Nageons Yverdon — ${escHtml(cls.fullName)} ${poolName}</h1><p>Évaluation natation — École primaire d'Yverdon</p></div>
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon blue"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
-        <div><h2>${escHtml(cls.fullName)} — ${poolName} <span class="badge ${activeEvalPool==='PB'?'badge-pb':'badge-gb'}">${students.length} élèves</span></h2></div>
-      </div>
-      <div class="stats-bar">
-        <div class="stat-box stat-r"><div class="num">${stats.R}</div><div class="lbl">Réussi</div></div>
-        <div class="stat-box stat-e"><div class="num">${stats.E}</div><div class="lbl">Entraîné</div></div>
-        <div class="stat-box stat-a"><div class="num">${stats.A}</div><div class="lbl">Absent</div></div>
-        <div class="stat-box stat-n"><div class="num">${stats.N}</div><div class="lbl">Non essayé</div></div>
-      </div>
-      <div style="font-size:0.83rem;color:var(--text-secondary);font-weight:600;">${stats.total} / ${totalCells} évaluations (${pct}%)</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-    </div>
-    <div class="card" style="padding:0;overflow:hidden;">
-      <div class="table-wrapper">
-        <table class="eval-grid"><thead><tr><th>Élève</th>${criteria.map(cr=>`<th>${escHtml(cr.name)}</th>`).join('')}</tr></thead>
-        <tbody>${students.map(s=>{
+  container.innerHTML=
+    '<div class="print-header"><h1>Nageons Yverdon — '+escHtml(cls.fullName)+' '+poolName+'</h1><p>Évaluation natation — École primaire d\'Yverdon</p></div>'+
+    '<div class="card">'+
+      '<div class="card-header">'+
+        '<div class="card-icon blue"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>'+
+        '<div><h2>'+escHtml(cls.fullName)+' — '+poolName+' <span class="badge '+(activeEvalPool==='PB'?'badge-pb':activeEvalPool==='GB'?'badge-gb':'badge-blue')+'">'+students.length+' élèves</span></h2></div>'+
+      '</div>'+
+      '<div class="stats-bar">'+
+        '<div class="stat-box stat-r"><div class="num">'+stats.R+'</div><div class="lbl">Réussi</div></div>'+
+        '<div class="stat-box stat-e"><div class="num">'+stats.E+'</div><div class="lbl">Entraîné</div></div>'+
+        '<div class="stat-box stat-a"><div class="num">'+stats.A+'</div><div class="lbl">Absent</div></div>'+
+        '<div class="stat-box stat-n"><div class="num">'+stats.N+'</div><div class="lbl">Non essayé</div></div>'+
+      '</div>'+
+      '<div style="font-size:0.83rem;color:var(--text-secondary);font-weight:600;">'+stats.total+' / '+totalCells+' évaluations ('+pct+'%)</div>'+
+      '<div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%"></div></div>'+
+    '</div>'+
+    '<div class="card" style="padding:0;overflow:hidden;">'+
+      (activeEvalCategory!=='all'?'<div style="padding:8px 16px;background:var(--primary-light);font-size:0.82rem;font-weight:800;color:var(--primary);">📂 Catégorie : '+escHtml(activeEvalCategory)+' ('+criteria.length+' critères)</div>':'')+
+      '<div class="table-wrapper">'+
+        '<table class="eval-grid"><thead>'+
+          (categories.length>0&&activeEvalCategory==='all'?'<tr><th style="position:sticky;left:0;z-index:3;background:var(--primary);"></th>'+criteria.map(cr=>'<th style="font-size:0.65rem;padding:2px 4px;background:var(--primary-light);color:var(--primary);font-weight:800;border-bottom:none;">'+escHtml(cr.category||'')+'</th>').join('')+'</tr>':'')+
+          '<tr><th>Élève</th>'+criteria.map(cr=>'<th>'+escHtml(cr.name)+'</th>').join('')+'</tr>'+
+        '</thead>'+
+        '<tbody>'+students.map(s=>{
           const gColor=s.gender==='F'?'var(--girl-color)':s.gender==='G'?'var(--boy-color)':'inherit';
-          const gIcon=s.gender==='F'?' <span style="color:var(--girl-color);font-size:0.75rem;">♀</span>':s.gender==='G'?' <span style="color:var(--boy-color);font-size:0.75rem;">♂</span>':'';
-          return `<tr><td style="border-left:3px solid ${gColor};">${escHtml(s.name)}${gIcon}</td>${criteria.map(cr=>{
+          const gIcon=s.gender==='F'?' <span style="color:var(--girl-color);font-size:0.75rem;">&#9792;</span>':s.gender==='G'?' <span style="color:var(--boy-color);font-size:0.75rem;">&#9794;</span>':'';
+          const poolTag=activeEvalPool==='ALL'?' <span class="student-pool '+s.pool.toLowerCase()+'" style="font-size:0.65rem;padding:1px 5px;">'+s.pool+'</span>':'';
+          return '<tr><td style="border-left:3px solid '+gColor+';">'+escHtml(s.name)+gIcon+poolTag+'</td>'+criteria.map(cr=>{
           const key=classId+'-'+s.id+'-'+cr.id;const val=data.evals[key]||'';
           const labels={R:'Réussi',E:'Entraîné',A:'Absent',N:'Non essayé'};
-          return `<td><span class="print-result">${val?labels[val]:'—'}</span><div class="eval-options">${['R','E','A','N'].map(v=>`<input type="radio" class="eval-option" name="${key}" id="${key}-${v}" value="${v}" ${val===v?'checked':''} onchange="setEval('${key}','${v}')"><label for="${key}-${v}" class="eval-label" data-val="${v}" title="${labels[v]}">${v}</label>`).join('')}</div></td>`;
-        }).join('')}</tr>`;}).join('')}</tbody></table>
-      </div>
-      <div class="legend" style="margin:0;border-radius:0;">
-        <div class="legend-item"><div class="legend-dot lg-r"></div>Réussi</div>
-        <div class="legend-item"><div class="legend-dot lg-e"></div>Entraîné</div>
-        <div class="legend-item"><div class="legend-dot lg-a"></div>Absent</div>
-        <div class="legend-item"><div class="legend-dot lg-n"></div>Non essayé</div>
-      </div>
-    </div>`;
+          return '<td><span class="print-result">'+(val?labels[val]:'—')+'</span><div class="eval-options">'+['R','E','A','N'].map(v=>'<input type="radio" class="eval-option" name="'+key+'" id="'+key+'-'+v+'" value="'+v+'" '+(val===v?'checked':'')+' onchange="setEval(\''+key+'\',\''+v+'\')"><label for="'+key+'-'+v+'" class="eval-label" data-val="'+v+'" title="'+labels[v]+'">'+v+'</label>').join('')+'</div></td>';
+        }).join('')+'</tr>';}).join('')+'</tbody></table>'+
+      '</div>'+
+      '<div class="legend" style="margin:0;border-radius:0;">'+
+        '<div class="legend-item"><div class="legend-dot lg-r"></div>Réussi</div>'+
+        '<div class="legend-item"><div class="legend-dot lg-e"></div>Entraîné</div>'+
+        '<div class="legend-item"><div class="legend-dot lg-a"></div>Absent</div>'+
+        '<div class="legend-item"><div class="legend-dot lg-n"></div>Non essayé</div>'+
+      '</div>'+
+    '</div>';
 }
 
-function setEval(key,val){data.evals[key]=val;loadEvaluation();}
+function setEval(key,val){
+  data.evals[key]=val;saveData();
+  const sy=window.scrollY;
+  const wrapper=document.querySelector('.table-wrapper');
+  const sx=wrapper?wrapper.scrollLeft:0;
+  loadEvaluation();
+  requestAnimationFrame(()=>{
+    window.scrollTo({top:sy,behavior:'instant'});
+    const w=document.querySelector('.table-wrapper');
+    if(w)w.scrollLeft=sx;
+  });
+}
 
 function printEvaluation(){
   const classId=document.getElementById('eval-class-select').value;
@@ -1094,7 +1428,7 @@ function refreshAttClassSelect(){
     LEVELS.map(l=>{
       const cls=data.classes.filter(c=>c.level===l);
       if(cls.length===0)return '';
-      return `<optgroup label="${l}">${cls.map(c=>`<option value="${c.id}" ${c.id===cur?'selected':''}>${escHtml(c.fullName)} (${c.students.length})</option>`).join('')}</optgroup>`;
+      return '<optgroup label="'+l+'">'+cls.map(c=>'<option value="'+c.id+'" '+(c.id===cur?'selected':'')+'>'+escHtml(c.fullName)+' ('+c.students.length+')</option>').join('')+'</optgroup>';
     }).join('');
   if(!document.getElementById('att-new-date').value){
     document.getElementById('att-new-date').value=new Date().toISOString().slice(0,10);
@@ -1112,15 +1446,16 @@ function addLessonDate(){
   data.lessonDates[classId].push(dateVal);
   data.lessonDates[classId].sort();
   loadAttendance();
+  saveData();
   toast('Date ajoutée');
 }
 
 function removeLessonDate(classId,dateVal){
   if(!data.lessonDates||!data.lessonDates[classId])return;
   data.lessonDates[classId]=data.lessonDates[classId].filter(d=>d!==dateVal);
-  // Clean attendance data for this date
   Object.keys(data.attendance).forEach(k=>{if(k.startsWith(classId+'-')&&k.endsWith('-'+dateVal))delete data.attendance[k];});
   loadAttendance();
+  saveData();
   toast('Date supprimée');
 }
 
@@ -1142,72 +1477,70 @@ function loadAttendance(){
   if(!data.lessonDates[classId])data.lessonDates[classId]=[];
   const dates=data.lessonDates[classId];
 
-  // Render date chips
   if(dates.length>0){
     chipsDiv.innerHTML='<div class="date-chips" style="margin-top:10px;">'+dates.map(d=>{
       const f=formatDateShort(d);
-      return `<span class="date-chip">${f.day} ${f.num} <button onclick="removeLessonDate('${classId}','${d}')" title="Supprimer cette date">✕</button></span>`;
+      return '<span class="date-chip">'+f.day+' '+f.num+' <button onclick="removeLessonDate(\''+classId+'\',\''+d+'\')" title="Supprimer cette date">&#10005;</button></span>';
     }).join('')+'</div>';
   } else { chipsDiv.innerHTML=''; }
 
   if(cls.students.length===0){
-    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">👤</div><p>Aucun élève dans cette classe</p></div></div>';
+    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">&#128100;</div><p>Aucun élève dans cette classe</p></div></div>';
     return;
   }
   if(dates.length===0){
-    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">📅</div><p>Aucune date de leçon</p><p class="hint">Ajoutez une date ci-dessus pour commencer l\'appel</p></div></div>';
+    container.innerHTML='<div class="card"><div class="empty"><div class="empty-illustration">&#128197;</div><p>Aucune date de leçon</p><p class="hint">Ajoutez une date ci-dessus pour commencer l\'appel</p></div></div>';
     return;
   }
 
   const pbStudents=cls.students.filter(s=>s.pool==='PB');
   const gbStudents=cls.students.filter(s=>s.pool==='GB');
 
-  // Build table rows with section headers
   function studentRows(students,sectionLabel){
     if(students.length===0)return '';
-    let rows=`<tr class="section-row"><td colspan="${dates.length+2}">${sectionLabel} (${students.length})</td></tr>`;
+    let rows='<tr class="section-row"><td colspan="'+(dates.length+2)+'">'+sectionLabel+' ('+students.length+')</td></tr>';
     students.forEach(s=>{
-      rows+=`<tr>
-        <td>${escHtml(s.name)}</td>
-        <td><button class="pool-toggle-btn is-${s.pool.toLowerCase()}" onclick="togglePool('${classId}','${s.id}','appel')" title="Passer en ${s.pool==='PB'?'GB':'PB'}">${s.pool} →</button></td>
-        ${dates.map(d=>{
+      rows+='<tr>'+
+        '<td>'+escHtml(s.name)+'</td>'+
+        '<td><button class="pool-toggle-btn is-'+s.pool.toLowerCase()+'" onclick="togglePool(\''+classId+'\',\''+s.id+'\',\'appel\')" title="Passer en '+(s.pool==='PB'?'GB':'PB')+'">'+s.pool+' &#8594;</button></td>'+
+        dates.map(d=>{
           const key=classId+'-'+s.id+'-'+d;
           const val=data.attendance[key]||'';
-          return `<td><div class="att-options">${['P','A','D'].map(v=>{
+          return '<td><div class="att-options">'+['P','A','D'].map(v=>{
             const labels={P:'Présent',A:'Absent',D:'Dispensé'};
-            return `<input type="radio" class="att-radio" name="${key}" id="${key}-${v}" value="${v}" ${val===v?'checked':''} onchange="setAttendance('${key}','${v}')"><label for="${key}-${v}" class="att-label" data-v="${v}" title="${labels[v]}">${v}</label>`;
-          }).join('')}</div></td>`;
-        }).join('')}
-      </tr>`;
+            return '<input type="radio" class="att-radio" name="'+key+'" id="'+key+'-'+v+'" value="'+v+'" '+(val===v?'checked':'')+' onchange="setAttendance(\''+key+'\',\''+v+'\')"><label for="'+key+'-'+v+'" class="att-label" data-v="'+v+'" title="'+labels[v]+'">'+v+'</label>';
+          }).join('')+'</div></td>';
+        }).join('')+
+      '</tr>';
     });
     return rows;
   }
 
-  container.innerHTML=`
-    <div class="print-header"><h1>Nageons Yverdon — Appel ${escHtml(cls.fullName)}</h1><p>${dates.length} leçon${dates.length>1?'s':''}</p></div>
-    <div class="card" style="padding:0;overflow:hidden;">
-      <div class="table-wrapper">
-        <table class="att-multi-grid">
-          <thead><tr>
-            <th>Élève</th>
-            <th>Bassin</th>
-            ${dates.map(d=>{const f=formatDateShort(d);return `<th><div class="att-date-header"><span class="att-date-day">${f.day}</span><span class="att-date-num">${f.num}</span></div></th>`;}).join('')}
-          </tr></thead>
-          <tbody>
-            ${studentRows(pbStudents,'<span style="color:var(--pb-color);">Petit bassin (PB)</span>')}
-            ${studentRows(gbStudents,'<span style="color:var(--gb-color);">Grand bassin (GB)</span>')}
-          </tbody>
-        </table>
-      </div>
-      <div class="legend" style="margin:0;border-radius:0;">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--green-500);"></div>Présent</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--red-500);"></div>Absent</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--amber-500);"></div>Dispensé</div>
-      </div>
-    </div>`;
+  container.innerHTML=
+    '<div class="print-header"><h1>Nageons Yverdon — Appel '+escHtml(cls.fullName)+'</h1><p>'+dates.length+' leçon'+(dates.length>1?'s':'')+'</p></div>'+
+    '<div class="card" style="padding:0;overflow:hidden;">'+
+      '<div class="table-wrapper">'+
+        '<table class="att-multi-grid">'+
+          '<thead><tr>'+
+            '<th>Élève</th>'+
+            '<th>Bassin</th>'+
+            dates.map(d=>{const f=formatDateShort(d);return '<th><div class="att-date-header"><span class="att-date-day">'+f.day+'</span><span class="att-date-num">'+f.num+'</span></div></th>';}).join('')+
+          '</tr></thead>'+
+          '<tbody>'+
+            studentRows(pbStudents,'<span style="color:var(--pb-color);">Petit bassin (PB)</span>')+
+            studentRows(gbStudents,'<span style="color:var(--gb-color);">Grand bassin (GB)</span>')+
+          '</tbody>'+
+        '</table>'+
+      '</div>'+
+      '<div class="legend" style="margin:0;border-radius:0;">'+
+        '<div class="legend-item"><div class="legend-dot" style="background:var(--green-500);"></div>Présent</div>'+
+        '<div class="legend-item"><div class="legend-dot" style="background:var(--red-500);"></div>Absent</div>'+
+        '<div class="legend-item"><div class="legend-dot" style="background:var(--amber-500);"></div>Dispensé</div>'+
+      '</div>'+
+    '</div>';
 }
 
-function setAttendance(key,val){data.attendance[key]=val;}
+function setAttendance(key,val){data.attendance[key]=val;saveData();}
 
 function printAttendance(){
   const classId=document.getElementById('att-class-select').value;
@@ -1228,24 +1561,461 @@ function importData(event){
     try{
       const imp=JSON.parse(e.target.result);
       if(imp.classes){
-        data=imp;
-        if(!data.evals)data.evals={};
-        if(!data.attendance)data.attendance={};
-        if(!data.lessonDates)data.lessonDates={};
-        if(!data.criteria||Array.isArray(data.criteria)){
-          // Migration from old format
-          const oldCriteria=Array.isArray(data.criteria)?data.criteria:[];
-          data.criteria={};
-          LEVELS.forEach(l=>{data.criteria[l]=[...oldCriteria];});
-        }
-        LEVELS.forEach(l=>{if(!data.criteria[l])data.criteria[l]=[];});
-        // Ensure all students have pool and gender
-        data.classes.forEach(cls=>{cls.students.forEach(s=>{if(!s.pool)s.pool='PB';if(!s.gender)s.gender='';if(!cls.level)cls.level='2P';if(!cls.fullName)cls.fullName=(cls.level||'2P')+cls.name;});});
-        renderAll();toast('Données chargées avec succès');
+        data=migrateData(imp);
+        renderAll();
+        saveData();
+        toast('Données chargées avec succès');
       } else {toast('Fichier invalide');}
     }catch(err){toast('Erreur de lecture du fichier');}
   };
   reader.readAsText(file,'UTF-8');event.target.value='';
+}
+
+// ===================== WORD GENERATION =====================
+
+function openWordModal() {
+  const classId = document.getElementById('eval-class-select').value;
+  if (!classId) { toast('Choisissez une classe d\'abord'); return; }
+  const cls = data.classes.find(c => c.id === classId);
+  if (!cls) return;
+  const criteria = data.criteria[cls.level] || [];
+  const pool = activeEvalPool;
+  let students = pool === 'ALL' ? [...cls.students] : cls.students.filter(s => s.pool === pool);
+  const poolLabel = pool === 'ALL' ? 'Tous' : pool === 'PB' ? 'Petit bassin' : 'Grand bassin';
+  document.getElementById('word-class-info').textContent = cls.fullName + ' — ' + poolLabel + ' (' + students.length + ' élèves)';
+  document.getElementById('word-criteria-info').textContent = criteria.length + ' critères dans le template';
+  const warn = document.getElementById('word-pool-warning');
+  if (cls.level === '5P' && pool === 'ALL' && cls.students.some(s => s.pool === 'PB') && cls.students.some(s => s.pool === 'GB')) {
+    warn.style.display = '';
+    warn.textContent = 'Attention : les 5P ont des templates différents pour PB et GB. Veuillez filtrer par bassin.';
+    document.getElementById('btn-generate-word').disabled = true;
+  } else {
+    warn.style.display = 'none';
+    document.getElementById('btn-generate-word').disabled = false;
+  }
+  document.getElementById('word-template-file').value = '';
+  document.getElementById('word-progress').style.display = 'none';
+  openModal('modal-word');
+}
+
+async function generateWord() {
+  const classId = document.getElementById('eval-class-select').value;
+  if (!classId) return;
+  const cls = data.classes.find(c => c.id === classId);
+  if (!cls) return;
+  const criteria = data.criteria[cls.level] || [];
+  const pool = activeEvalPool;
+  const students = pool === 'ALL' ? [...cls.students] : cls.students.filter(s => s.pool === pool);
+
+  const fileInput = document.getElementById('word-template-file');
+  if (!fileInput.files[0]) { toast('Choisissez un fichier template Word (.docx)'); return; }
+
+  if (typeof JSZip === 'undefined') {
+    toast('JSZip non chargé — vérifiez votre connexion internet'); return;
+  }
+
+  const btn = document.getElementById('btn-generate-word');
+  btn.disabled = true;
+  const prog = document.getElementById('word-progress');
+  const progBar = document.getElementById('word-progress-bar');
+  const progText = document.getElementById('word-progress-text');
+  prog.style.display = '';
+  progBar.style.width = '0%';
+
+  try {
+    const templateBuffer = await fileInput.files[0].arrayBuffer();
+    const classLabel = cls.level + '/' + cls.name;
+
+    // Eval marker mapping: R→X, E→/, A→O, N ou vide→-
+    function toMarker(val) {
+      if (val === 'R') return 'X';
+      if (val === 'E') return '/';
+      if (val === 'A') return 'O';
+      return '-';
+    }
+
+    // Escape special XML characters in replacement values
+    function xmlEsc(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+    }
+
+    // Load template once to read document.xml
+    const tplZip = await JSZip.loadAsync(templateBuffer);
+    const docXmlOrig = await tplZip.file('word/document.xml').async('string');
+
+    const outputZip = new JSZip();
+
+    for (let si = 0; si < students.length; si++) {
+      const s = students[si];
+      progText.textContent = 'Génération ' + (si + 1) + '/' + students.length + ' — ' + s.name + '…';
+      progBar.style.width = Math.round((si / students.length) * 90) + '%';
+
+      const nameParts = s.name.split(' ');
+      const prenom = nameParts[0];
+
+      // Replace all placeholders in the XML
+      let xml = docXmlOrig;
+      xml = xml.replace(/\{prenom\}/g, xmlEsc(prenom));
+      xml = xml.replace(/\{classe\}/g, xmlEsc(classLabel));
+      for (let ci = 0; ci < criteria.length; ci++) {
+        const cr = criteria[ci];
+        const evalVal = data.evals[classId + '-' + s.id + '-' + cr.id] || '';
+        xml = xml.replace(new RegExp('\\{c' + (ci + 1) + '\\}', 'g'), toMarker(evalVal));
+      }
+      // Fill any unused criterion slots with '-'
+      xml = xml.replace(/\{c\d+\}/g, '-');
+
+      // Clone template ZIP and replace document.xml
+      const studentZip = await JSZip.loadAsync(templateBuffer);
+      studentZip.file('word/document.xml', xml);
+      const docxBytes = await studentZip.generateAsync({ type: 'arraybuffer', compression: 'DEFLATE' });
+
+      const safeName = s.name.replace(/[^a-zA-ZÀ-ÿ0-9 _-]/g, '').trim();
+      outputZip.file(safeName + '.docx', docxBytes);
+
+      await new Promise(r => setTimeout(r, 5));
+    }
+
+    progText.textContent = 'Création du fichier ZIP…';
+    progBar.style.width = '95%';
+
+    const zipBlob = await outputZip.generateAsync({ type: 'blob' });
+    const poolSuffix = pool !== 'ALL' ? '_' + pool : '';
+    downloadBlob(zipBlob, 'fiches_' + cls.fullName.replace(/\s+/g, '_') + poolSuffix + '.zip');
+
+    progBar.style.width = '100%';
+    progText.textContent = 'Terminé ! ' + students.length + ' fiches générées.';
+    toast('ZIP généré avec ' + students.length + ' fiches Word');
+
+  } catch (err) {
+    progText.textContent = 'Erreur : ' + (err.message || err);
+    console.error('Word generation error:', err);
+    toast('Erreur lors de la génération Word');
+  }
+  btn.disabled = false;
+}
+
+// ===================== PDF GENERATION =====================
+const PDF_PH = 841.89; // A4 page height in points
+
+// Template configs: marker positions in pdfplumber coords (x0, yTop)
+// Reading order: left-col categories top-to-bottom, then right-col categories top-to-bottom
+const PDF_TEMPLATES = {
+  '2P': {
+    numCriteria: 12,
+    pageBg: [0.792, 0.933, 0.984],
+    badgeBg: [0.592, 0.902, 1.000],
+    hasLastName: false,
+    nameRect: {x:395, y:724, w:185, h:24},
+    nameX: 400, nameY: 727, nameSz: 15.5,
+    classRect: {x:395, y:708, w:185, h:18}, classX: 400, classY: 712, classSz: 11.6,
+    markerSz: 13.5,
+    markers: [
+      {x:59.3,yt:284.5},{x:59.3,yt:338.7},{x:59.3,yt:393.0},
+      {x:314.9,yt:279.8},{x:314.9,yt:334.1},{x:314.9,yt:388.4},
+      {x:59.9,yt:569.2},{x:59.3,yt:623.3},{x:59.3,yt:677.6},
+      {x:319.6,yt:577.6},{x:319.6,yt:631.9},{x:319.6,yt:686.1}
+    ]
+  },
+  '3P': {
+    numCriteria: 14,
+    pageBg: [1, 1, 1],
+    badgeBg: [0.592, 0.902, 1.000],
+    hasLastName: true,
+    nameRect: {x:400, y:704, w:180, h:42},
+    nameX: 404, nameY: 730, name2Y: 713, nameSz: 13.9,
+    classRect: {x:400, y:741, w:175, h:20}, classX: 404, classY: 744, classSz: 13.9,
+    markerSz: 13.5,
+    markers: [
+      {x:51.0,yt:282.8},{x:51.0,yt:329.4},{x:51.0,yt:375.9},
+      {x:305.9,yt:282.3},{x:305.9,yt:331.8},{x:305.9,yt:378.6},{x:305.9,yt:425.1},
+      {x:51.6,yt:567.2},{x:50.5,yt:614.2},{x:51.0,yt:660.8},{x:49.8,yt:707.4},
+      {x:325.8,yt:567.2},{x:325.8,yt:613.8},{x:325.8,yt:660.6}
+    ]
+  },
+  '5P_PB': {
+    numCriteria: 12,
+    pageBg: [0.792, 0.933, 0.984],
+    badgeBg: [0.592, 0.902, 1.000],
+    hasLastName: true,
+    nameRect: {x:416, y:730, w:165, h:50},
+    nameX: 420, nameY: 757, name2Y: 740, nameSz: 15.3,
+    classRect: {x:416, y:773, w:160, h:20}, classX: 420, classY: 776, classSz: 15.3,
+    markerSz: 13.5,
+    markers: [
+      {x:62.5,yt:268.4},{x:63.9,yt:317.5},{x:62.5,yt:366.4},
+      {x:330.9,yt:269.1},{x:330.9,yt:318.0},
+      {x:63.1,yt:530.0},{x:62.5,yt:578.5},{x:61.3,yt:627.5},{x:61.3,yt:676.6},
+      {x:324.2,yt:530.3},{x:324.2,yt:579.2},{x:324.2,yt:628.1}
+    ]
+  },
+  '5P_GB': {
+    numCriteria: 11,
+    pageBg: [0.792, 0.933, 0.984],
+    badgeBg: [0.592, 0.902, 1.000],
+    hasLastName: true,
+    nameRect: {x:400, y:740, w:180, h:20},
+    nameX: 404, nameY: 746, name2Y: 746, nameSz: 13.9,
+    nameOneLine: true,
+    classRect: {x:400, y:723, w:180, h:18}, classX: 404, classY: 726, classSz: 13.9,
+    markerSz: 13.5,
+    markers: [
+      {x:50.6,yt:267.9},{x:50.6,yt:314.5},{x:50.6,yt:361.0},
+      {x:305.4,yt:267.4},{x:305.4,yt:316.9},
+      {x:51.1,yt:565.9},{x:50.6,yt:612.1},{x:49.3,yt:658.6},
+      {x:317.9,yt:566.0},{x:317.9,yt:612.8},{x:317.9,yt:659.4}
+    ]
+  },
+  '6P': {
+    numCriteria: 12,
+    pageBg: [0.792, 0.933, 0.984],
+    badgeBg: [0.592, 0.902, 1.000],
+    hasLastName: true,
+    nameRect: {x:400, y:740, w:180, h:20},
+    nameX: 404, nameY: 746, name2Y: 746, nameSz: 13.9,
+    nameOneLine: true,
+    classRect: {x:400, y:723, w:180, h:18}, classX: 404, classY: 726, classSz: 13.9,
+    markerSz: 13.5,
+    markers: [
+      {x:50.6,yt:284.5},{x:50.6,yt:331.3},{x:49.3,yt:377.8},
+      {x:305.4,yt:283.5},{x:305.4,yt:333.0},
+      {x:51.1,yt:557.8},{x:50.6,yt:604.2},{x:50.6,yt:650.7},
+      {x:325.4,yt:557.1},{x:326.8,yt:603.7},{x:326.8,yt:650.2},{x:324.1,yt:696.8}
+    ]
+  }
+};
+
+function getPdfTemplateKey(level, pool) {
+  if (level === '5P') return pool === 'GB' ? '5P_GB' : '5P_PB';
+  if (level === '6P') return '6P';
+  return level; // 2P, 3P, 4P
+}
+
+function openPdfModal() {
+  const classId = document.getElementById('eval-class-select').value;
+  if (!classId) { toast('Choisissez une classe d\'abord'); return; }
+  const cls = data.classes.find(c => c.id === classId);
+  if (!cls) return;
+  const criteria = data.criteria[cls.level] || [];
+
+  // Determine pool context
+  const pool = activeEvalPool;
+  let students;
+  if (pool === 'ALL') {
+    students = [...cls.students];
+  } else {
+    students = cls.students.filter(s => s.pool === pool);
+  }
+
+  const poolLabel = pool === 'ALL' ? 'Tous' : pool === 'PB' ? 'Petit bassin' : 'Grand bassin';
+  document.getElementById('pdf-class-info').textContent = cls.fullName + ' — ' + poolLabel + ' (' + students.length + ' élèves)';
+
+  // Check if mixed pools with ALL filter on 5P
+  const warn = document.getElementById('pdf-pool-warning');
+  if (cls.level === '5P' && pool === 'ALL' && cls.students.some(s => s.pool === 'PB') && cls.students.some(s => s.pool === 'GB')) {
+    warn.style.display = '';
+    warn.textContent = 'Attention : les 5P ont des templates différents pour PB et GB. Veuillez filtrer par bassin (PB ou GB) avant de générer.';
+    document.getElementById('btn-generate-pdf').disabled = true;
+  } else {
+    warn.style.display = 'none';
+    document.getElementById('btn-generate-pdf').disabled = false;
+  }
+
+  const tplKey = getPdfTemplateKey(cls.level, pool === 'ALL' ? (cls.students[0]?.pool || 'PB') : pool);
+  const tpl = PDF_TEMPLATES[tplKey];
+
+  if (!tpl) {
+    document.getElementById('pdf-criteria-info').textContent = 'Pas de template PDF configuré pour le niveau ' + cls.level + '. Contactez l\'administrateur.';
+    document.getElementById('btn-generate-pdf').disabled = true;
+  } else {
+    const match = Math.min(criteria.length, tpl.numCriteria);
+    let info = criteria.length + ' critères sur le site, ' + tpl.numCriteria + ' positions sur le template.';
+    if (criteria.length !== tpl.numCriteria) {
+      info += ' ⚠ Différence ! Seuls les ' + match + ' premiers seront utilisés.';
+    }
+    document.getElementById('pdf-criteria-info').textContent = info;
+
+    // Show criteria mapping preview
+    const preview = document.getElementById('pdf-mapping-preview');
+    preview.style.display = '';
+    let html = '<table style="width:100%;border-collapse:collapse;"><thead><tr><th style="text-align:left;padding:3px 6px;border-bottom:1px solid var(--gray-300);">#</th><th style="text-align:left;padding:3px 6px;border-bottom:1px solid var(--gray-300);">Critère du site</th></tr></thead><tbody>';
+    for (let i = 0; i < match; i++) {
+      html += '<tr><td style="padding:3px 6px;border-bottom:1px solid var(--gray-200);">' + (i + 1) + '</td><td style="padding:3px 6px;border-bottom:1px solid var(--gray-200);">' + escHtml(criteria[i].name) + '</td></tr>';
+    }
+    html += '</tbody></table>';
+    preview.innerHTML = html;
+  }
+
+  document.getElementById('pdf-template-file').value = '';
+  document.getElementById('pdf-progress').style.display = 'none';
+  openModal('modal-pdf');
+}
+
+async function generatePdf() {
+  const classId = document.getElementById('eval-class-select').value;
+  if (!classId) return;
+  const cls = data.classes.find(c => c.id === classId);
+  if (!cls) return;
+
+  const fileInput = document.getElementById('pdf-template-file');
+  if (!fileInput.files.length) { toast('Veuillez sélectionner un template PDF'); return; }
+
+  const pool = activeEvalPool;
+  let students;
+  if (pool === 'ALL') {
+    students = [...cls.students];
+  } else {
+    students = cls.students.filter(s => s.pool === pool);
+  }
+
+  // Apply current sort/filter
+  if (evalFilterGender !== 'all') students = students.filter(s => s.gender === evalFilterGender);
+  if (evalSortMode === 'alpha') {
+    students = [...students].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+  } else if (evalSortMode === 'gender') {
+    students = [...students].sort((a, b) => {
+      const ga = (a.gender || '') === '' ? 2 : (a.gender === 'F' ? 0 : 1);
+      const gb = (b.gender || '') === '' ? 2 : (b.gender === 'F' ? 0 : 1);
+      if (ga !== gb) return ga - gb;
+      return a.name.localeCompare(b.name, 'fr');
+    });
+  }
+
+  if (students.length === 0) { toast('Aucun élève à exporter'); return; }
+
+  const tplKey = getPdfTemplateKey(cls.level, pool === 'ALL' ? (students[0]?.pool || 'PB') : pool);
+  const cfg = PDF_TEMPLATES[tplKey];
+  if (!cfg) { toast('Pas de template configuré pour ce niveau'); return; }
+
+  const criteria = data.criteria[cls.level] || [];
+  const numMatch = Math.min(criteria.length, cfg.markers.length);
+
+  // Show progress
+  document.getElementById('pdf-progress').style.display = '';
+  document.getElementById('btn-generate-pdf').disabled = true;
+  const progBar = document.getElementById('pdf-progress-bar');
+  const progText = document.getElementById('pdf-progress-text');
+
+  try {
+    const { PDFDocument, rgb, StandardFonts } = PDFLib;
+
+    // Load template PDF
+    progText.textContent = 'Chargement du template...';
+    const templateBytes = await fileInput.files[0].arrayBuffer();
+    const templateDoc = await PDFDocument.load(templateBytes);
+
+    // Create output document
+    const outputDoc = await PDFDocument.create();
+    const font = await outputDoc.embedFont(StandardFonts.Helvetica);
+    const fontBold = await outputDoc.embedFont(StandardFonts.HelveticaBold);
+
+    // Embed page 1 of template as background
+    const templatePages = templateDoc.getPages();
+    const [embeddedPage] = await outputDoc.embedPages([templatePages[0]]);
+    const dims = embeddedPage.scale(1);
+
+    for (let si = 0; si < students.length; si++) {
+      const s = students[si];
+      const pct = Math.round(((si + 1) / students.length) * 100);
+      progText.textContent = 'Élève ' + (si + 1) + '/' + students.length + ' — ' + s.name;
+      progBar.style.width = pct + '%';
+
+      // Create new page with same dimensions
+      const page = outputDoc.addPage([dims.width, dims.height]);
+
+      // Draw template as background
+      page.drawPage(embeddedPage, { x: 0, y: 0, width: dims.width, height: dims.height });
+
+      // White-out name area
+      const nr = cfg.nameRect;
+      page.drawRectangle({
+        x: nr.x, y: nr.y, width: nr.w, height: nr.h,
+        color: rgb(cfg.pageBg[0], cfg.pageBg[1], cfg.pageBg[2])
+      });
+
+      // White-out class area and redraw with actual class from the site
+      if (cfg.classRect) {
+        const cr2 = cfg.classRect;
+        page.drawRectangle({
+          x: cr2.x, y: cr2.y, width: cr2.w, height: cr2.h,
+          color: rgb(cfg.pageBg[0], cfg.pageBg[1], cfg.pageBg[2])
+        });
+        const classLabel = cls.level + '/' + cls.name;
+        page.drawText(classLabel, {
+          x: cfg.classX, y: cfg.classY,
+          size: cfg.classSz, font: font, color: rgb(0, 0, 0)
+        });
+      }
+
+      // Draw student name
+      const nameParts = s.name.split(' ');
+      if (cfg.hasLastName && !cfg.nameOneLine && nameParts.length > 1) {
+        // First name on line 1, last name on line 2
+        const firstName = nameParts[0];
+        const lastName = nameParts.slice(1).join(' ');
+        page.drawText(firstName, { x: cfg.nameX, y: cfg.nameY, size: cfg.nameSz, font: font, color: rgb(0, 0, 0) });
+        page.drawText(lastName, { x: cfg.nameX, y: cfg.name2Y, size: cfg.nameSz, font: font, color: rgb(0, 0, 0) });
+      } else if (cfg.nameOneLine || cfg.hasLastName) {
+        page.drawText(s.name, { x: cfg.nameX, y: cfg.nameY, size: cfg.nameSz, font: font, color: rgb(0, 0, 0) });
+      } else {
+        // 2P: first name only
+        const firstName = nameParts[0];
+        page.drawText(firstName, { x: cfg.nameX, y: cfg.nameY, size: cfg.nameSz, font: font, color: rgb(0, 0, 0) });
+      }
+
+      // Draw markers for each criterion
+      for (let i = 0; i < numMatch; i++) {
+        const m = cfg.markers[i];
+        const cr = criteria[i];
+        const evalVal = data.evals[classId + '-' + s.id + '-' + cr.id] || '';
+
+        // Convert eval to marker: R→X, E→/, A→O, N→-, ''→-
+        const marker = evalVal === 'R' ? 'X' : evalVal === 'E' ? '/' : evalVal === 'A' ? 'O' : '-';
+
+        // Calculate PDF coordinates from pdfplumber yTop
+        const circleY = PDF_PH - m.yt - cfg.markerSz / 2;
+        const circleX = m.x + 4;
+
+        // Draw badge-colored circle to cover old marker text
+        page.drawEllipse({
+          x: circleX, y: circleY,
+          xScale: 8, yScale: 8,
+          color: rgb(cfg.badgeBg[0], cfg.badgeBg[1], cfg.badgeBg[2])
+        });
+
+        // Draw new marker text, centered in the circle
+        // Vertical offset per character: cap letters (X,O) use cap-height center (0.35),
+        // slash (/) is taller so slightly higher (0.38), hyphen (-) sits at x-height so lower (0.24)
+        const vOffset = marker === '-' ? 0.24 : marker === '/' ? 0.38 : 0.35;
+        const tw = font.widthOfTextAtSize(marker, cfg.markerSz);
+        const textX = circleX - tw / 2;
+        const textY = circleY - cfg.markerSz * vOffset;
+        page.drawText(marker, {
+          x: textX, y: textY,
+          size: cfg.markerSz, font: font, color: rgb(0, 0, 0)
+        });
+      }
+
+      // Yield to UI for progress bar
+      await new Promise(r => setTimeout(r, 5));
+    }
+
+    progText.textContent = 'Finalisation du PDF...';
+    const pdfBytes = await outputDoc.save();
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    const poolSuffix = pool !== 'ALL' ? '_' + pool : '';
+    downloadBlob(blob, 'evaluations_' + cls.fullName.replace(/\s+/g, '_') + poolSuffix + '.pdf');
+
+    progText.textContent = 'Terminé ! ' + students.length + ' fiches générées.';
+    toast('PDF généré avec ' + students.length + ' fiches');
+
+  } catch (err) {
+    progText.textContent = 'Erreur : ' + err.message;
+    console.error('PDF generation error:', err);
+    toast('Erreur lors de la génération');
+  }
+
+  document.getElementById('btn-generate-pdf').disabled = false;
 }
 
 // ===================== RENDER ALL =====================
@@ -1257,9 +2027,17 @@ function renderAll(){
 
 // ===================== INIT =====================
 (function(){
-  // Bubbles
-  const bc=document.getElementById('bubbles');
-  for(let i=0;i<10;i++){const b=document.createElement('div');b.className='bubble';const sz=8+Math.random()*25;b.style.width=sz+'px';b.style.height=sz+'px';b.style.left=Math.random()*100+'%';b.style.bottom='-'+sz+'px';b.style.animationDuration=(6+Math.random()*10)+'s';b.style.animationDelay=Math.random()*8+'s';bc.appendChild(b);}
+  // Load from localStorage
+  const saved=localStorage.getItem('nageons-yverdon-data');
+  if(saved){
+    try{
+      const parsed=JSON.parse(saved);
+      if(parsed && parsed.classes){
+        data=migrateData(parsed);
+        setTimeout(()=>toast('Données restaurées'),500);
+      }
+    }catch(e){}
+  }
   // Enter key
   document.getElementById('login-password').addEventListener('keydown',e=>{if(e.key==='Enter')attemptLogin();});
   document.getElementById('new-class-name').addEventListener('keydown',e=>{if(e.key==='Enter')addClass();});
@@ -1268,6 +2046,14 @@ function renderAll(){
   // Close modals on overlay click
   document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)closeModal(o.id);});});
   renderAll();
+  // Pre-fill Firebase config textarea if already saved
+  const savedCfg=localStorage.getItem('nageons-firebase-config');
+  if(savedCfg){
+    const ta=document.getElementById('firebase-config-input');
+    if(ta) ta.value=savedCfg;
+  }
+  // Init Firebase
+  setTimeout(initFirebase, 300);
   // Focus login
   document.getElementById('login-password').focus();
 })();
