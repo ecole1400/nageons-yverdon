@@ -1,0 +1,300 @@
+{
+  "classes": [
+    {
+      "id": "mqz6s1nzlm1o5",
+      "level": "2P",
+      "name": "2P222",
+      "fullName": "2P2P222",
+      "students": [
+        {
+          "id": "mr9n4tdzlmbxd",
+          "name": "a",
+          "pool": "PB",
+          "gender": "F"
+        },
+        {
+          "id": "mr9n4y17gtd29",
+          "name": "bb",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mqz6s9iuo9g14",
+          "name": "Kevin",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mqz6s5iv1ma3i",
+          "name": "Léa",
+          "pool": "PB",
+          "gender": "F"
+        },
+        {
+          "id": "mqzcydwra20rn",
+          "name": "Magali Cantamessa",
+          "pool": "PB",
+          "gender": "F"
+        },
+        {
+          "id": "mqzcy4syrhyrw",
+          "name": "Michael Schmutz",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mramjr0za6lzc",
+          "name": "Roger",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mr9n4o60ote28",
+          "name": "x",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mr9n4r6dza8ip",
+          "name": "y",
+          "pool": "PB",
+          "gender": "F"
+        }
+      ],
+      "archived": false
+    },
+    {
+      "id": "mqz6se7tb6xkk",
+      "level": "3P",
+      "name": "3PCB2",
+      "fullName": "3P3PCB2",
+      "students": [
+        {
+          "id": "mqzcwmcs9nerj",
+          "name": "Al capone",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mqzcwufj1hm9m",
+          "name": "Beyoncé",
+          "pool": "PB",
+          "gender": "F"
+        },
+        {
+          "id": "mqz6sza6u0luh",
+          "name": "Daniel",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mqz6sza65iiqm",
+          "name": "Fred",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mqzcz7rrr24kd",
+          "name": "Mélanie",
+          "pool": "PB",
+          "gender": "F"
+        }
+      ],
+      "archived": false
+    },
+    {
+      "id": "mqz6tg01dm8le",
+      "level": "3P",
+      "name": "3PPE1",
+      "fullName": "3P3PPE1",
+      "students": [
+        {
+          "id": "mqz6to3olq5wo",
+          "name": "Loic",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mqzcx7tizwx6g",
+          "name": "Régis",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
+          "id": "mqzcwyagbf1tl",
+          "name": "Shakira",
+          "pool": "PB",
+          "gender": "F"
+        },
+        {
+          "id": "mqzcxo1rwf36d",
+          "name": "Valentine Marchand",
+          "pool": "PB",
+          "gender": "F"
+        }
+      ],
+      "archived": false
+    }
+  ],
+  "criteria": {
+    "2P": [
+      {
+        "id": "mr6hhl42z2c17",
+        "name": "Je souffle hors de l'eau pour faire des vagues"
+      },
+      {
+        "id": "mr6ulljzk571b",
+        "name": "Je souffle dans l'eau pour faire des bulles"
+      },
+      {
+        "id": "mr6um4mj548qd",
+        "name": "Je mets la tête sous l'eau"
+      },
+      {
+        "id": "mr6umea8y5e4g",
+        "name": "Sur les escaliers je me déplace comme un crocodile"
+      },
+      {
+        "id": "mr6umsoc5o8x4",
+        "name": "Je saute dans le cerceau vertical comme un dauphin"
+      },
+      {
+        "id": "mr6unfktdwgvj",
+        "name": "Dans le bassin je me déplace en sautant comme une grenouille"
+      },
+      {
+        "id": "mr6unrg43wrxd",
+        "name": "Avant de me baigner je prends une douche calmement"
+      },
+      {
+        "id": "mr6uo02tqaqdo",
+        "name": "Hors de l'eau, je me déplace en marchant"
+      },
+      {
+        "id": "mr6uoe8y9ferw",
+        "name": "Je ne crie pas pendant la douche et durant la leçon"
+      },
+      {
+        "id": "mr6uonzfhfpo1",
+        "name": "Depuis le bord, je saute dans le petit bassin"
+      },
+      {
+        "id": "mr6uozsjaooj5",
+        "name": "Depuis le bord, je saute dans le petit bassin en mettant la tête sous l'eau"
+      },
+      {
+        "id": "mr6upk7mceqgd",
+        "name": "Depuis le bord, je saute dans le petit bassin en passant dans le cerceau horizontal"
+      }
+    ],
+    "3P": [
+      {
+        "id": "mqz6twl7b4j49",
+        "name": "Faire des bulles"
+      },
+      {
+        "id": "mqz6tye13a4aa",
+        "name": "Mettre la tête sous l'eau"
+      }
+    ],
+    "4P": [],
+    "5P": [],
+    "6P": [
+      {
+        "id": "mramkwks7jcq6",
+        "name": "Faire une grimace",
+        "category": ""
+      }
+    ]
+  },
+  "evals": {
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6hhl42z2c17": "R",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6hhl42z2c17": "E",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6hhl42z2c17": "A",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6hhl42z2c17": "N",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6ulljzk571b": "R",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6ulljzk571b": "R",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6ulljzk571b": "R",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6ulljzk571b": "R",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6um4mj548qd": "E",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6um4mj548qd": "E",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6um4mj548qd": "E",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6um4mj548qd": "A",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6umea8y5e4g": "N",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6umea8y5e4g": "E",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6umea8y5e4g": "N",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6umea8y5e4g": "N",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6umsoc5o8x4": "R",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6umsoc5o8x4": "R",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6umsoc5o8x4": "R",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6umsoc5o8x4": "R",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6unfktdwgvj": "A",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6unrg43wrxd": "E",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6unfktdwgvj": "E",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6unfktdwgvj": "A",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6unfktdwgvj": "N",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6unrg43wrxd": "R",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6unrg43wrxd": "R",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6unrg43wrxd": "R",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6uo02tqaqdo": "R",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6uoe8y9ferw": "R",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6uonzfhfpo1": "R",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6uozsjaooj5": "R",
+    "mqz6s1nzlm1o5-mqz6s9iuo9g14-mr6upk7mceqgd": "R",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6uo02tqaqdo": "R",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6uo02tqaqdo": "A",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6uoe8y9ferw": "E",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6uoe8y9ferw": "N",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6uonzfhfpo1": "E",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6uonzfhfpo1": "E",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6uonzfhfpo1": "N",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6uozsjaooj5": "A",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6uozsjaooj5": "E",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6uozsjaooj5": "E",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6upk7mceqgd": "N",
+    "mqz6s1nzlm1o5-mqzcydwra20rn-mr6upk7mceqgd": "A",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6upk7mceqgd": "N",
+    "mqz6s1nzlm1o5-mqz6s5iv1ma3i-mr6uoe8y9ferw": "N",
+    "mqz6s1nzlm1o5-mqzcy4syrhyrw-mr6uo02tqaqdo": "R",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6umsoc5o8x4": "E",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6unfktdwgvj": "E",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6unfktdwgvj": "R",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6unrg43wrxd": "R",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6uo02tqaqdo": "E",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6upk7mceqgd": "R",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6ulljzk571b": "R",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6umea8y5e4g": "R",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6umsoc5o8x4": "R",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6unrg43wrxd": "R",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6hhl42z2c17": "E",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6ulljzk571b": "A",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6um4mj548qd": "E",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6umea8y5e4g": "R",
+    "mqz6s1nzlm1o5-mr9n4o60ote28-mr6unrg43wrxd": "E",
+    "mqz6s1nzlm1o5-mr9n4o60ote28-mr6ulljzk571b": "E",
+    "mqz6s1nzlm1o5-mr9n4o60ote28-mr6um4mj548qd": "N",
+    "mqz6s1nzlm1o5-mr9n4r6dza8ip-mr6umea8y5e4g": "R",
+    "mqz6s1nzlm1o5-mr9n4r6dza8ip-mr6unrg43wrxd": "E",
+    "mqz6s1nzlm1o5-mr9n4o60ote28-mr6uoe8y9ferw": "R",
+    "mqz6s1nzlm1o5-mr9n4o60ote28-mr6uozsjaooj5": "R",
+    "mqz6s1nzlm1o5-mr9n4r6dza8ip-mr6upk7mceqgd": "R",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6uonzfhfpo1": "R",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6upk7mceqgd": "E",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6uozsjaooj5": "R",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6uozsjaooj5": "R",
+    "mqz6s1nzlm1o5-mr9n4y17gtd29-mr6uoe8y9ferw": "R",
+    "mqz6s1nzlm1o5-mr9n4tdzlmbxd-mr6uoe8y9ferw": "R"
+  },
+  "attendance": {
+    "mqz6tg01dm8le-mqz6to3olq5wo-2026-06-27": "P",
+    "mqz6tg01dm8le-mqzcx7tizwx6g-2026-06-27": "A",
+    "mqz6tg01dm8le-mqzcwyagbf1tl-2026-06-27": "A",
+    "mqz6tg01dm8le-mqzcxo1rwf36d-2026-06-27": "D"
+  },
+  "lessonDates": {
+    "mqz6tg01dm8le": [
+      "2026-06-27",
+      "2026-06-29"
+    ]
+  }
+}
