@@ -171,6 +171,10 @@
         "name": "Hors de l'eau, je me déplace en marchant"
       },
       {
+        "id": "mr6uoe8y9ferw",
+        "name": "Je ne crie pas pendant la douche et durant la leçon"
+      },
+      {
         "id": "mr6uonzfhfpo1",
         "name": "Depuis le bord, je saute dans le petit bassin"
       },
@@ -181,10 +185,6 @@
       {
         "id": "mr6upk7mceqgd",
         "name": "Depuis le bord, je saute dans le petit bassin en passant dans le cerceau horizontal"
-      },
-      {
-        "id": "mr6uoe8y9ferw",
-        "name": "Je ne crie pas pendant la douche et durant la leçon"
       }
     ],
     "3P": [
