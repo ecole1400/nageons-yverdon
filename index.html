@@ -652,7 +652,8 @@ textarea{resize:vertical;min-height:100px;}
       <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">O</span>Absent</span>
       <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">-</span>Non essayé</span>
     </div>
-    <label>Template Word (.docx) avec les balises &#123;prenom&#125; &#123;classe&#125; &#123;c1&#125;…</label>
+    <div id="word-cloud-status" style="margin-bottom:8px;font-size:0.82rem;padding:8px 10px;background:var(--gray-50);border-radius:6px;"></div>
+    <label>Template Word local (.docx) — si non disponible sur GitHub</label>
     <input type="file" id="word-template-file" accept=".docx" style="margin-bottom:14px;">
     <div id="word-progress" style="display:none;margin-bottom:12px;">
       <div style="font-size:0.82rem;font-weight:700;margin-bottom:4px;" id="word-progress-text">Génération en cours...</div>
@@ -678,7 +679,8 @@ textarea{resize:vertical;min-height:100px;}
       <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">O</span>Absent</span>
       <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#97E6FF;text-align:center;line-height:20px;font-size:0.82rem;margin-right:4px;">-</span>Non essayé</span>
     </div>
-    <label>Template PDF (fourni par le canton)</label>
+    <div id="pdf-cloud-status" style="margin-bottom:8px;font-size:0.82rem;padding:8px 10px;background:var(--gray-50);border-radius:6px;"></div>
+    <label>Template PDF local — si non disponible sur GitHub</label>
     <input type="file" id="pdf-template-file" accept=".pdf" style="margin-bottom:14px;">
     <div id="pdf-mapping-preview" style="max-height:200px;overflow-y:auto;margin-bottom:14px;font-size:0.78rem;border:1px solid var(--gray-300);border-radius:6px;padding:8px;display:none;"></div>
     <div id="pdf-progress" style="display:none;margin-bottom:12px;">
@@ -1653,6 +1655,64 @@ function importData(event){
 
 // ===================== WORD GENERATION =====================
 
+async function fetchTemplateFromGitHub(level, type){
+  const gh=detectGitHub();
+  if(!gh) return {buf:null, url:null, reason:'not-github'};
+  const {owner,repo}=gh;
+  const ext=type==='word'?'docx':'pdf';
+  // Essayer main puis master
+  for(const branch of ['main','master']){
+    const url=`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/templates/${level}_template.${ext}?t=${Date.now()}`;
+    try{
+      const r=await fetch(url);
+      if(r.ok){
+        const buf=await r.arrayBuffer();
+        return {buf, url, reason:'ok'};
+      }
+    }catch(e){}
+  }
+  const {owner:o,repo:rp}=gh;
+  const ext2=type==='word'?'docx':'pdf';
+  return {buf:null, url:`https://raw.githubusercontent.com/${o}/${rp}/main/templates/${level}_template.${ext2}`, reason:'not-found'};
+}
+
+async function checkCloudTemplate(level, type){
+  const elId=type==='word'?'word-cloud-status':'pdf-cloud-status';
+  const fileId=type==='word'?'word-template-file':'pdf-template-file';
+  const el=document.getElementById(elId);
+  const fi=document.getElementById(fileId);
+  if(!el) return;
+  const gh=detectGitHub();
+  if(!gh){
+    el.innerHTML='<span style="color:#f59e0b;font-weight:600;">⚠ Ouvrez le site via l\'URL GitHub Pages (pas en local)</span>';
+    if(fi) fi.style.display='';
+    return;
+  }
+  const ext=type==='word'?'docx':'pdf';
+  const {owner,repo}=gh;
+  const testUrl=`https://raw.githubusercontent.com/${owner}/${repo}/main/templates/${level}_template.${ext}`;
+  el.innerHTML='<span style="color:#9ca3af;">Recherche du template cloud…</span>';
+  const {buf}=await fetchTemplateFromGitHub(level,type);
+  if(buf){
+    el.innerHTML='<span style="color:#16a34a;font-weight:700;">✓ Template '+level+' chargé depuis GitHub</span>';
+    if(fi) fi.style.display='none';
+    const lbl=fi&&fi.previousElementSibling;
+    if(lbl&&lbl.tagName==='LABEL') lbl.style.display='none';
+  } else {
+    el.innerHTML=
+      '<span style="color:#dc2626;font-weight:600;">✗ Fichier non trouvé sur GitHub</span><br>'
+      +'<small style="color:#6b7280;">Nom attendu : <code>templates/'+level+'_template.'+ext+'</code></small><br>'
+      +'<small><a href="'+testUrl+'" target="_blank" style="color:#2563eb;text-decoration:underline;">Tester le lien direct ↗</a></small>';
+    if(fi) fi.style.display='';
+  }
+}
+
+// Version sans objet retour pour generateWord/generatePdf
+async function fetchTemplateBufferFromGitHub(level, type){
+  const result=await fetchTemplateFromGitHub(level,type);
+  return result?result.buf:null;
+}
+
 function openWordModal() {
   const classId = document.getElementById('eval-class-select').value;
   if (!classId) { toast('Choisissez une classe d\'abord'); return; }
@@ -1674,8 +1734,12 @@ function openWordModal() {
     document.getElementById('btn-generate-word').disabled = false;
   }
   document.getElementById('word-template-file').value = '';
+  document.getElementById('word-template-file').style.display = '';
   document.getElementById('word-progress').style.display = 'none';
+  const cloudEl=document.getElementById('word-cloud-status');
+  if(cloudEl) cloudEl.innerHTML='<span style="color:#9ca3af;">Vérification du template cloud…</span>';
   openModal('modal-word');
+  checkCloudTemplate(cls.level,'word');
 }
 
 async function generateWord() {
@@ -1686,9 +1750,6 @@ async function generateWord() {
   const criteria = data.criteria[cls.level] || [];
   const pool = activeEvalPool;
   const students = pool === 'ALL' ? [...cls.students] : cls.students.filter(s => s.pool === pool);
-
-  const fileInput = document.getElementById('word-template-file');
-  if (!fileInput.files[0]) { toast('Choisissez un fichier template Word (.docx)'); return; }
 
   if (typeof JSZip === 'undefined') {
     toast('JSZip non chargé — vérifiez votre connexion internet'); return;
@@ -1703,7 +1764,16 @@ async function generateWord() {
   progBar.style.width = '0%';
 
   try {
-    const templateBuffer = await fileInput.files[0].arrayBuffer();
+    // Essayer d'abord le template cloud (GitHub), sinon fichier local
+    let templateBuffer = await fetchTemplateBufferFromGitHub(cls.level, 'word');
+    if(!templateBuffer){
+      const fileInput = document.getElementById('word-template-file');
+      if (!fileInput.files[0]) {
+        toast('Template introuvable sur GitHub — choisissez un fichier local');
+        btn.disabled = false; prog.style.display = 'none'; return;
+      }
+      templateBuffer = await fileInput.files[0].arrayBuffer();
+    }
     const classLabel = cls.level + '/' + cls.name;
 
     // Eval marker mapping: R→X, E→/, A→O, N ou vide→-
@@ -1927,8 +1997,12 @@ function openPdfModal() {
   }
 
   document.getElementById('pdf-template-file').value = '';
+  document.getElementById('pdf-template-file').style.display = '';
   document.getElementById('pdf-progress').style.display = 'none';
+  const cloudEl=document.getElementById('pdf-cloud-status');
+  if(cloudEl) cloudEl.innerHTML='<span style="color:#9ca3af;">Vérification du template cloud…</span>';
   openModal('modal-pdf');
+  checkCloudTemplate(cls.level,'pdf');
 }
 
 async function generatePdf() {
@@ -1938,7 +2012,6 @@ async function generatePdf() {
   if (!cls) return;
 
   const fileInput = document.getElementById('pdf-template-file');
-  if (!fileInput.files.length) { toast('Veuillez sélectionner un template PDF'); return; }
 
   const pool = activeEvalPool;
   let students;
@@ -1979,9 +2052,19 @@ async function generatePdf() {
   try {
     const { PDFDocument, rgb, StandardFonts } = PDFLib;
 
-    // Load template PDF
+    // Load template PDF — essayer cloud d'abord, sinon fichier local
     progText.textContent = 'Chargement du template...';
-    const templateBytes = await fileInput.files[0].arrayBuffer();
+    let templateBytes = await fetchTemplateBufferFromGitHub(cls.level, 'pdf');
+    if(!templateBytes){
+      const fileInput2 = document.getElementById('pdf-template-file');
+      if(!fileInput2.files[0]){
+        toast('Template PDF introuvable sur GitHub — choisissez un fichier local');
+        document.getElementById('pdf-progress').style.display='none';
+        document.getElementById('btn-generate-pdf').disabled=false;
+        return;
+      }
+      templateBytes = await fileInput2.files[0].arrayBuffer();
+    }
     const templateDoc = await PDFDocument.load(templateBytes);
 
     // Create output document
