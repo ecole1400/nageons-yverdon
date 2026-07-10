@@ -310,6 +310,11 @@
         "id": "mrf1a7y9hnxx6",
         "name": "Battements jambes dos sur 12m",
         "category": "Propulsion dorsale PB"
+      },
+      {
+        "id": "mrf1aigxwjogo",
+        "name": "Nager sur le dos avec bras et jambes sur 12m",
+        "category": "Propulsion dorsale PB"
       }
     ]
   },
