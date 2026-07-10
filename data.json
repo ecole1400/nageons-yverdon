@@ -350,6 +350,11 @@
         "id": "mrf31lohanndt",
         "name": "Nager 25m en brasse avec respiration",
         "category": "Propulsion ventrale et respiration GB"
+      },
+      {
+        "id": "mrf32kywwu1zt",
+        "name": "Mouvements de brasse avec jambes sur le dos",
+        "category": "Propulsion dorsale GB"
       }
     ]
   },
