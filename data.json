@@ -305,6 +305,11 @@
         "id": "mrf19pay7p99j",
         "name": "Nager 12m en brasse",
         "category": "Propulsion ventrale et respiration PB"
+      },
+      {
+        "id": "mrf1a7y9hnxx6",
+        "name": "Battements jambes dos sur 12m",
+        "category": "Propulsion dorsale PB"
       }
     ]
   },
