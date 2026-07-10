@@ -300,6 +300,11 @@
         "id": "mrf19iy9awpob",
         "name": "Nager 12m crawl et respiration latérale",
         "category": "Propulsion ventrale et respiration PB"
+      },
+      {
+        "id": "mrf19pay7p99j",
+        "name": "Nager 12m en brasse",
+        "category": "Propulsion ventrale et respiration PB"
       }
     ]
   },
