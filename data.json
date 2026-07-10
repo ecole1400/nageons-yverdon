@@ -295,6 +295,11 @@
         "id": "mrf18s6wqqey4",
         "name": "Battements de jambes crawl sur 12m",
         "category": "Propulsion ventrale et respiration"
+      },
+      {
+        "id": "mrf19iy9awpob",
+        "name": "Nager 12m crawl et respiration latérale",
+        "category": "Propulsion ventrale et respiration PB"
       }
     ]
   },
