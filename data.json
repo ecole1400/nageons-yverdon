@@ -142,6 +142,12 @@
       "fullName": "6P222",
       "students": [
         {
+          "id": "mrf17atjs8s28",
+          "name": "1",
+          "pool": "GB",
+          "gender": "G"
+        },
+        {
           "id": "mrf16ptzy8yuw",
           "name": "a",
           "pool": "PB",
