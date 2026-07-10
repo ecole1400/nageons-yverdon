@@ -340,6 +340,11 @@
         "id": "mrf30x70x7ij8",
         "name": "\"superman\" 12m et respiration latérale",
         "category": "Propulsion ventrale et respiration GB"
+      },
+      {
+        "id": "mrf319ecxxynw",
+        "name": "Nager 25m crawl et respiration latérale",
+        "category": "Propulsion ventrale et respiration GB"
       }
     ]
   },
