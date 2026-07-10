@@ -345,6 +345,11 @@
         "id": "mrf319ecxxynw",
         "name": "Nager 25m crawl et respiration latérale",
         "category": "Propulsion ventrale et respiration GB"
+      },
+      {
+        "id": "mrf31lohanndt",
+        "name": "Nager 25m en brasse avec respiration",
+        "category": "Propulsion ventrale et respiration GB"
       }
     ]
   },
