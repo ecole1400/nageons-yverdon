@@ -182,6 +182,12 @@
           "name": "Régis",
           "pool": "PB",
           "gender": "G"
+        },
+        {
+          "id": "mrf16z2ugjcho",
+          "name": "x",
+          "pool": "GB",
+          "gender": "F"
         }
       ]
     }
