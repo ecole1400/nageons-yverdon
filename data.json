@@ -219,7 +219,8 @@
           "pool": "GB",
           "gender": "F"
         }
-      ]
+      ],
+      "archived": false
     }
   ],
   "criteria": {
@@ -283,9 +284,11 @@
         "name": "Mettre la tête sous l'eau"
       }
     ],
-    "4P": [],
-    "5P": [],
-    "6P": [
+    "4P_PB": [],
+    "4P_GB": [],
+    "5P_PB": [],
+    "5P_GB": [],
+    "6P_PB": [
       {
         "id": "mrf18s6wqqey4",
         "name": "Battements de jambes crawl sur 12m",
@@ -330,6 +333,13 @@
         "id": "mrf1d13xe7vev",
         "name": "Réaliser un parcours d'agilité en allant sous l'eau et en nageant sur le ventre et le dos",
         "category": "Test d'aisance PB"
+      }
+    ],
+    "6P_GB": [
+      {
+        "id": "mrf30x70x7ij8",
+        "name": "\"superman\" 12m et respiration latérale",
+        "category": "Propulsion ventrale et respiration GB"
       }
     ]
   },
