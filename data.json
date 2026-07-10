@@ -355,6 +355,11 @@
         "id": "mrf32kywwu1zt",
         "name": "Mouvements de brasse avec jambes sur le dos",
         "category": "Propulsion dorsale GB"
+      },
+      {
+        "id": "mrf32y25catlq",
+        "name": "Nager sur le dos avec bras et jambes sur 25m",
+        "category": "Propulsion dorsale GB"
       }
     ]
   },
