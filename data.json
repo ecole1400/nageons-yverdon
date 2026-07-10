@@ -140,7 +140,14 @@
       "level": "6P",
       "name": "222",
       "fullName": "6P222",
-      "students": []
+      "students": [
+        {
+          "id": "mrf16dlpd83nj",
+          "name": "Fred",
+          "pool": "PB",
+          "gender": "G"
+        }
+      ]
     }
   ],
   "criteria": {
