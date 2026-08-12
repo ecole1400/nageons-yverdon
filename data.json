@@ -249,6 +249,12 @@
       "fullName": "6PPE3",
       "students": [
         {
+          "id": "msq2tafi86xq3",
+          "name": "1",
+          "pool": "PB",
+          "gender": "G"
+        },
+        {
           "id": "msq2t493t9p13",
           "name": "a",
           "pool": "PB",
