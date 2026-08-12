@@ -233,6 +233,12 @@
           "name": "André",
           "pool": "PB",
           "gender": "G"
+        },
+        {
+          "id": "msq12p1q66hl6",
+          "name": "Soraya",
+          "pool": "PB",
+          "gender": "F"
         }
       ]
     }
