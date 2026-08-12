@@ -269,7 +269,7 @@
         {
           "id": "msq2t75xmw1td",
           "name": "b",
-          "pool": "PB",
+          "pool": "GB",
           "gender": "F"
         }
       ]
@@ -879,7 +879,8 @@
     "mqz6tg01dm8le-mqz6to3olq5wo-2026-06-27": "P",
     "mqz6tg01dm8le-mqzcx7tizwx6g-2026-06-27": "A",
     "mqz6tg01dm8le-mqzcwyagbf1tl-2026-06-27": "A",
-    "mqz6tg01dm8le-mqzcxo1rwf36d-2026-06-27": "D"
+    "mqz6tg01dm8le-mqzcxo1rwf36d-2026-06-27": "D",
+    "msq2sep7nsvrm-msq2tafi86xq3-2026-08-12": "P"
   },
   "lessonDates": {
     "mqz6tg01dm8le": [
