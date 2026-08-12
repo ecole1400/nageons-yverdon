@@ -227,7 +227,14 @@
       "level": "5P",
       "name": "PE1",
       "fullName": "5PPE1",
-      "students": []
+      "students": [
+        {
+          "id": "msq12jyf3issv",
+          "name": "André",
+          "pool": "PB",
+          "gender": "G"
+        }
+      ]
     }
   ],
   "criteria": {
