@@ -247,7 +247,14 @@
       "level": "6P",
       "name": "PE3",
       "fullName": "6PPE3",
-      "students": []
+      "students": [
+        {
+          "id": "msq2t493t9p13",
+          "name": "a",
+          "pool": "PB",
+          "gender": "F"
+        }
+      ]
     }
   ],
   "criteria": {
