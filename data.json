@@ -284,10 +284,239 @@
         "name": "Mettre la tête sous l'eau"
       }
     ],
-    "4P_PB": [],
-    "4P_GB": [],
-    "5P_PB": [],
-    "5P_GB": [],
+    "4P_PB": [
+      {
+        "id": "b-4P_PB-0",
+        "name": "METTRE LA TÊTE SOUS L'EAU 3'' LES YEUX OUVERTS",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-4P_PB-1",
+        "name": "EFFECTUER UNE FLÈCHE VENTRALE SUR 3M",
+        "category": "Glisse"
+      },
+      {
+        "id": "b-4P_PB-2",
+        "name": "RECHERCHER UN ANNEAU SOUS L'EAU",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-4P_PB-3",
+        "name": "EFFECTUER UNE FLÈCHE DORSALE SUR 3M",
+        "category": "Glisse"
+      },
+      {
+        "id": "b-4P_PB-4",
+        "name": "5 INSPIRATIONS ET EXPIRATIONS EN POSITION VERTICALE EN TENANT LE MUR",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-4P_PB-5",
+        "name": "BATTEMENTS DE JAMBES CRAWL AVEC MATERIEL FLOTTANT 12M",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-4P_PB-6",
+        "name": "SAUTER DANS LE GRAND BASSIN AVEC AIDE (1.20M)",
+        "category": "Sauts"
+      },
+      {
+        "id": "b-4P_PB-7",
+        "name": "BATTEMENTS DE JAMBES CRAWL SANS MATERIEL FLOTTANT 12M",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-4P_PB-8",
+        "name": "SAUTER DANS LE GRAND BASSIN SANS AIDE (1.20M)",
+        "category": "Sauts"
+      },
+      {
+        "id": "b-4P_PB-9",
+        "name": "BATTEMENTS DE JAMBES DOS AVEC MATERIEL FLOTTANT 12M",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-4P_PB-10",
+        "name": "REALISER UNE CULBUTE POUR ENTRER DANS L'EAU, AVEC AIDE",
+        "category": "Culbutes"
+      },
+      {
+        "id": "b-4P_PB-11",
+        "name": "BATTEMENTS DE JAMBES DOS SANS MATERIEL FLOTTANT 12M",
+        "category": "Propulsion"
+      }
+    ],
+    "4P_GB": [
+      {
+        "id": "b-4P_GB-0",
+        "name": "METTRE LA TÊTE SOUS L'EAU 3'' LES YEUX OUVERTS",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-4P_GB-1",
+        "name": "EFFECTUER UNE FLÈCHE VENTRALE SUR 3M",
+        "category": "Glisse"
+      },
+      {
+        "id": "b-4P_GB-2",
+        "name": "RECHERCHER UN ANNEAU SOUS L'EAU",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-4P_GB-3",
+        "name": "EFFECTUER UNE FLÈCHE DORSALE SUR 3M",
+        "category": "Glisse"
+      },
+      {
+        "id": "b-4P_GB-4",
+        "name": "5 INSPIRATIONS ET EXPIRATIONS EN POSITION VERTICALE EN TENANT LE MUR",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-4P_GB-5",
+        "name": "BATTEMENTS DE JAMBES CRAWL AVEC MATERIEL FLOTTANT 12M",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-4P_GB-6",
+        "name": "SAUTER DANS LE GRAND BASSIN AVEC AIDE (1.20M)",
+        "category": "Sauts"
+      },
+      {
+        "id": "b-4P_GB-7",
+        "name": "BATTEMENTS DE JAMBES CRAWL SANS MATERIEL FLOTTANT 12M",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-4P_GB-8",
+        "name": "SAUTER DANS LE GRAND BASSIN SANS AIDE (1.20M)",
+        "category": "Sauts"
+      },
+      {
+        "id": "b-4P_GB-9",
+        "name": "BATTEMENTS DE JAMBES DOS AVEC MATERIEL FLOTTANT 12M",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-4P_GB-10",
+        "name": "REALISER UNE CULBUTE POUR ENTRER DANS L'EAU, AVEC AIDE",
+        "category": "Culbutes"
+      },
+      {
+        "id": "b-4P_GB-11",
+        "name": "BATTEMENTS DE JAMBES DOS SANS MATERIEL FLOTTANT 12M",
+        "category": "Propulsion"
+      }
+    ],
+    "5P_PB": [
+      {
+        "id": "b-5P_PB-0",
+        "name": "FLÈCHE VENTRALE 4M",
+        "category": "Glisse"
+      },
+      {
+        "id": "b-5P_PB-1",
+        "name": "METTRE LA TÊTE SOUS L'EAU 10''",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-5P_PB-2",
+        "name": "FLÈCHE DORSALE 4M",
+        "category": "Glisse"
+      },
+      {
+        "id": "b-5P_PB-3",
+        "name": "RECHERCHER 3 ANNEAUX",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-5P_PB-4",
+        "name": "5 INSPIR-EXPIR EN POSITION HORIZONTALE EN TENANT LE MUR",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-5P_PB-5",
+        "name": "BATTEMENTS DE JAMBES CRAWL SANS MATÉRIEL FLOTTANT 12 MÈTRES",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-5P_PB-6",
+        "name": "SAUTER DANS LE GRAND BASSIN 1.80M",
+        "category": "Sauts"
+      },
+      {
+        "id": "b-5P_PB-7",
+        "name": "BATTEMENTS DE JAMBES DOS SANS MATÉRIEL FLOTTANT 12 MÈTRES",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-5P_PB-8",
+        "name": "SAUTER DANS LE GRAND BASSIN 1.20M, PUIS FLOTTER SUR LE VENTRE 3''",
+        "category": "Sauts"
+      },
+      {
+        "id": "b-5P_PB-9",
+        "name": "CULBUTE POUR ENTRER DANS L'EAU AVEC AIDE (1.20 M)",
+        "category": "Culbutes"
+      }
+    ],
+    "5P_GB": [
+      {
+        "id": "b-5P_GB-1",
+        "name": "FLÈCHE VENTRALE 4 MÈTRES",
+        "category": "Glisse"
+      },
+      {
+        "id": "b-5P_GB-2",
+        "name": "RECHERCHER 3 ANNEAUX",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-5P_GB-3",
+        "name": "FLÈCHE DORSALE 4 MÈTRES",
+        "category": "Glisse"
+      },
+      {
+        "id": "b-5P_GB-0",
+        "name": "METTRE LA TÊTE SOUS L'EAU 10''",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-5P_GB-4",
+        "name": "ENCHAÎNER 5 INSP. ET EXP. EN POSITION HORIZONTALE EN TENANT LE MUR",
+        "category": "Immersion"
+      },
+      {
+        "id": "b-5P_GB-5",
+        "name": "BATTEMENTS DE JAMBES CRAWL + DOS AVEC MATERIEL FLOTTANT 25 MÈTRES",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-5P_GB-6",
+        "name": "SAUTER DANS LE GRAND BASSIN (1.80M)",
+        "category": "Sauts"
+      },
+      {
+        "id": "b-5P_GB-7",
+        "name": "BATTEMENTS DE JAMBES CRAWL + DOS SANS MATERIEL FLOTTANT 25 MÈTRES",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-5P_GB-8",
+        "name": "SAUTER DANS LE GRAND BASSIN (1.80 M), PUIS FLOTTER SUR LE VENTRE 3''",
+        "category": "Sauts"
+      },
+      {
+        "id": "b-5P_GB-9",
+        "name": "MOUVEMENTS DE JAMBES BRASSE AVEC MATÉRIEL FLOTTANT 25 MÈTRES",
+        "category": "Propulsion"
+      },
+      {
+        "id": "b-5P_GB-10",
+        "name": "CULBUTE POUR ENTRER DANS L'EAU (1.80 M)",
+        "category": "Culbutes"
+      }
+    ],
     "6P_PB": [
       {
         "id": "mrf18s6wqqey4",
