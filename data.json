@@ -240,7 +240,8 @@
           "pool": "PB",
           "gender": "F"
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "msq2sep7nsvrm",
@@ -272,7 +273,8 @@
           "pool": "GB",
           "gender": "F"
         }
-      ]
+      ],
+      "archived": false
     }
   ],
   "criteria": {
