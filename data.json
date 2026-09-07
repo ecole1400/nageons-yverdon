@@ -5,7 +5,134 @@
       "level": "6P",
       "name": "251",
       "fullName": "6P251",
-      "students": []
+      "students": [
+        {
+          "id": "mtrka4gb8im7b",
+          "name": "Adoni",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbjqa52",
+          "name": "Aidan",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gb9jo0n",
+          "name": "Ania",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbosucd",
+          "name": "Auguste",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbi3c3d",
+          "name": "Ayham",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbrau4y",
+          "name": "Bhuti",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gb2byep",
+          "name": "Bleyssia Mboso",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gb48r27",
+          "name": "Célestine",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbqnnpl",
+          "name": "Chiara",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbvsbsd",
+          "name": "Cornelia",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbfs678",
+          "name": "Dina",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gb4dz21",
+          "name": "Elise",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gblrfvn",
+          "name": "Emilio Lucio",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbjyzw2",
+          "name": "Kenan",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbinp6z",
+          "name": "Luca",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbng5s5",
+          "name": "Lydia",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbr2j32",
+          "name": "Michael",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbm2091",
+          "name": "Naïm",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbx0tz6",
+          "name": "Nika",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gbzadtt",
+          "name": "Salvador",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrka4gb4zem0",
+          "name": "Stevan",
+          "pool": "PB",
+          "gender": ""
+        }
+      ]
     }
   ],
   "criteria": {
