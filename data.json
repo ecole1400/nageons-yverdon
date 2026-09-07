@@ -1,39 +1,6 @@
 {
   "classes": [
     {
-      "id": "mqz6tg01dm8le",
-      "level": "3P",
-      "name": "3PPE1",
-      "fullName": "3P3PPE1",
-      "students": [
-        {
-          "id": "mqz6to3olq5wo",
-          "name": "Loic",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "mqzcx7tizwx6g",
-          "name": "Régis",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "mqzcwyagbf1tl",
-          "name": "Shakira",
-          "pool": "PB",
-          "gender": "F"
-        },
-        {
-          "id": "mqzcxo1rwf36d",
-          "name": "Valentine Marchand",
-          "pool": "PB",
-          "gender": "F"
-        }
-      ],
-      "archived": false
-    },
-    {
       "id": "msq2sep7nsvrm",
       "level": "6P",
       "name": "PE3",
@@ -483,20 +450,12 @@
     "msq2sep7nsvrm-msq2t493t9p13-mrf1d13xe7vev": "E"
   },
   "attendance": {
-    "mqz6tg01dm8le-mqz6to3olq5wo-2026-06-27": "P",
-    "mqz6tg01dm8le-mqzcx7tizwx6g-2026-06-27": "A",
-    "mqz6tg01dm8le-mqzcwyagbf1tl-2026-06-27": "A",
-    "mqz6tg01dm8le-mqzcxo1rwf36d-2026-06-27": "D",
     "msq2sep7nsvrm-msq2tafi86xq3-2026-08-12": "P",
     "msq2sep7nsvrm-msq2t493t9p13-2026-08-12": "P",
     "msq2sep7nsvrm-msq2tdx7xfs8t-2026-08-12": "A",
     "msq2sep7nsvrm-msq2t75xmw1td-2026-08-12": "D"
   },
   "lessonDates": {
-    "mqz6tg01dm8le": [
-      "2026-06-27",
-      "2026-06-29"
-    ],
     "msq2sep7nsvrm": [
       "2026-08-12",
       "2026-08-19"
