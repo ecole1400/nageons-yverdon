@@ -1,39 +1,6 @@
 {
   "classes": [
     {
-      "id": "msq2sep7nsvrm",
-      "level": "6P",
-      "name": "PE3",
-      "fullName": "6PPE3",
-      "students": [
-        {
-          "id": "msq2tafi86xq3",
-          "name": "1",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "msq2tdx7xfs8t",
-          "name": "2",
-          "pool": "GB",
-          "gender": "G"
-        },
-        {
-          "id": "msq2t493t9p13",
-          "name": "a",
-          "pool": "PB",
-          "gender": "F"
-        },
-        {
-          "id": "msq2t75xmw1td",
-          "name": "b",
-          "pool": "GB",
-          "gender": "F"
-        }
-      ],
-      "archived": false
-    },
-    {
       "id": "mtrk8k44ps4te",
       "level": "6P",
       "name": "251",
@@ -445,27 +412,7 @@
       }
     ]
   },
-  "evals": {
-    "msq2sep7nsvrm-msq2tafi86xq3-mrf1aigxwjogo": "R",
-    "msq2sep7nsvrm-msq2t493t9p13-mrf1bfzfe57bb": "E",
-    "msq2sep7nsvrm-msq2tafi86xq3-mrf1buwx6pi9e": "A",
-    "msq2sep7nsvrm-msq2tafi86xq3-mrf1c9k9sdy8w": "N",
-    "msq2sep7nsvrm-msq2tafi86xq3-mrf18s6wqqey4": "R",
-    "msq2sep7nsvrm-msq2tafi86xq3-mrf19iy9awpob": "R",
-    "msq2sep7nsvrm-msq2t493t9p13-mrf19pay7p99j": "R",
-    "msq2sep7nsvrm-msq2t493t9p13-mrf1a7y9hnxx6": "R",
-    "msq2sep7nsvrm-msq2t493t9p13-mrf1d13xe7vev": "E"
-  },
-  "attendance": {
-    "msq2sep7nsvrm-msq2tafi86xq3-2026-08-12": "P",
-    "msq2sep7nsvrm-msq2t493t9p13-2026-08-12": "P",
-    "msq2sep7nsvrm-msq2tdx7xfs8t-2026-08-12": "A",
-    "msq2sep7nsvrm-msq2t75xmw1td-2026-08-12": "D"
-  },
-  "lessonDates": {
-    "msq2sep7nsvrm": [
-      "2026-08-12",
-      "2026-08-19"
-    ]
-  }
+  "evals": {},
+  "attendance": {},
+  "lessonDates": {}
 }
