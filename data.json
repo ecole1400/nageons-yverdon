@@ -1,45 +1,6 @@
 {
   "classes": [
     {
-      "id": "mqz6se7tb6xkk",
-      "level": "3P",
-      "name": "3PCB2",
-      "fullName": "3P3PCB2",
-      "students": [
-        {
-          "id": "mqzcwmcs9nerj",
-          "name": "Al capone",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "mqzcwufj1hm9m",
-          "name": "Beyoncé",
-          "pool": "PB",
-          "gender": "F"
-        },
-        {
-          "id": "mqz6sza6u0luh",
-          "name": "Daniel",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "mqz6sza65iiqm",
-          "name": "Fred",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "mqzcz7rrr24kd",
-          "name": "Mélanie",
-          "pool": "PB",
-          "gender": "F"
-        }
-      ],
-      "archived": false
-    },
-    {
       "id": "mqz6tg01dm8le",
       "level": "3P",
       "name": "3PPE1",
@@ -67,93 +28,6 @@
           "id": "mqzcxo1rwf36d",
           "name": "Valentine Marchand",
           "pool": "PB",
-          "gender": "F"
-        }
-      ],
-      "archived": false
-    },
-    {
-      "id": "mrf169pezlcfv",
-      "level": "6P",
-      "name": "222",
-      "fullName": "6P222",
-      "students": [
-        {
-          "id": "mrf17atjs8s28",
-          "name": "1",
-          "pool": "GB",
-          "gender": "G"
-        },
-        {
-          "id": "mrf17csuck21h",
-          "name": "2",
-          "pool": "GB",
-          "gender": "G"
-        },
-        {
-          "id": "mrf17eqqe5vea",
-          "name": "3",
-          "pool": "GB",
-          "gender": "G"
-        },
-        {
-          "id": "mrf16ptzy8yuw",
-          "name": "a",
-          "pool": "PB",
-          "gender": "F"
-        },
-        {
-          "id": "mrf16sfzqrzed",
-          "name": "b",
-          "pool": "PB",
-          "gender": "F"
-        },
-        {
-          "id": "mrf16vcknq4cv",
-          "name": "c",
-          "pool": "PB",
-          "gender": "F"
-        },
-        {
-          "id": "mrf16fx0owj2m",
-          "name": "Daniel",
-          "pool": "GB",
-          "gender": "G"
-        },
-        {
-          "id": "mrf16dlpd83nj",
-          "name": "Fred",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "mrf16ic2r67mn",
-          "name": "Loic",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "mrf16kx5p54u5",
-          "name": "Régis",
-          "pool": "PB",
-          "gender": "G"
-        },
-        {
-          "id": "mrf16z2ugjcho",
-          "name": "x",
-          "pool": "GB",
-          "gender": "F"
-        },
-        {
-          "id": "mrf173u6pfv7c",
-          "name": "y",
-          "pool": "GB",
-          "gender": "F"
-        },
-        {
-          "id": "mrf176t4f7ik4",
-          "name": "z",
-          "pool": "GB",
           "gender": "F"
         }
       ],
@@ -598,89 +472,6 @@
     ]
   },
   "evals": {
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf18s6wqqey4": "R",
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf19iy9awpob": "R",
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf19pay7p99j": "R",
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf1a7y9hnxx6": "R",
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf1aigxwjogo": "R",
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf1bfzfe57bb": "R",
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf1buwx6pi9e": "R",
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf1c9k9sdy8w": "R",
-    "mrf169pezlcfv-mrf16ptzy8yuw-mrf1d13xe7vev": "R",
-    "mrf169pezlcfv-mrf16sfzqrzed-mrf1d13xe7vev": "E",
-    "mrf169pezlcfv-mrf16sfzqrzed-mrf1c9k9sdy8w": "E",
-    "mrf169pezlcfv-mrf16sfzqrzed-mrf1bfzfe57bb": "E",
-    "mrf169pezlcfv-mrf16sfzqrzed-mrf1aigxwjogo": "E",
-    "mrf169pezlcfv-mrf16sfzqrzed-mrf1a7y9hnxx6": "E",
-    "mrf169pezlcfv-mrf16sfzqrzed-mrf19iy9awpob": "E",
-    "mrf169pezlcfv-mrf16sfzqrzed-mrf19pay7p99j": "E",
-    "mrf169pezlcfv-mrf16sfzqrzed-mrf18s6wqqey4": "E",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf18s6wqqey4": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf18s6wqqey4": "N",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf19iy9awpob": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf19iy9awpob": "N",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf19pay7p99j": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf19pay7p99j": "N",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf1a7y9hnxx6": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf1a7y9hnxx6": "N",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf1aigxwjogo": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf1aigxwjogo": "N",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf1bfzfe57bb": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf1bfzfe57bb": "N",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf1buwx6pi9e": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf1buwx6pi9e": "N",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf1c9k9sdy8w": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf1c9k9sdy8w": "N",
-    "mrf169pezlcfv-mrf16vcknq4cv-mrf1d13xe7vev": "A",
-    "mrf169pezlcfv-mrf16fx0owj2m-mrf1d13xe7vev": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf30x70x7ij8": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf30x70x7ij8": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf30x70x7ij8": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf30x70x7ij8": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf319ecxxynw": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf319ecxxynw": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf319ecxxynw": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf319ecxxynw": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf31lohanndt": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf31lohanndt": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf31lohanndt": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf31lohanndt": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf32kywwu1zt": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf32kywwu1zt": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf32kywwu1zt": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf32kywwu1zt": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf32y25catlq": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf32y25catlq": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf32y25catlq": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf32y25catlq": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf33n93aa241": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf33n93aa241": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf33n93aa241": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf33n93aa241": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf348196l5lg": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf348196l5lg": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf348196l5lg": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf348196l5lg": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf35yk7d3t9p": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf35yk7d3t9p": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf35yk7d3t9p": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf35yk7d3t9p": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf36txco7vpb": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf36txco7vpb": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf36txco7vpb": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf36txco7vpb": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf3701r2xixq": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf3701r2xixq": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf3701r2xixq": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf3701r2xixq": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf37iokz0xzf": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf37iokz0xzf": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf37iokz0xzf": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf37iokz0xzf": "N",
-    "mrf169pezlcfv-mrf17atjs8s28-mrf38dmghuh8a": "R",
-    "mrf169pezlcfv-mrf17csuck21h-mrf38dmghuh8a": "E",
-    "mrf169pezlcfv-mrf17eqqe5vea-mrf38dmghuh8a": "A",
-    "mrf169pezlcfv-mrf16z2ugjcho-mrf38dmghuh8a": "N",
     "msq2sep7nsvrm-msq2tafi86xq3-mrf1aigxwjogo": "R",
     "msq2sep7nsvrm-msq2t493t9p13-mrf1bfzfe57bb": "E",
     "msq2sep7nsvrm-msq2tafi86xq3-mrf1buwx6pi9e": "A",
@@ -689,10 +480,7 @@
     "msq2sep7nsvrm-msq2tafi86xq3-mrf19iy9awpob": "R",
     "msq2sep7nsvrm-msq2t493t9p13-mrf19pay7p99j": "R",
     "msq2sep7nsvrm-msq2t493t9p13-mrf1a7y9hnxx6": "R",
-    "msq2sep7nsvrm-msq2t493t9p13-mrf1d13xe7vev": "E",
-    "mrf169pezlcfv-mrf16dlpd83nj-mrf19pay7p99j": "R",
-    "mrf169pezlcfv-mrf16ic2r67mn-mrf19iy9awpob": "E",
-    "mrf169pezlcfv-mrf16kx5p54u5-mrf19iy9awpob": "A"
+    "msq2sep7nsvrm-msq2t493t9p13-mrf1d13xe7vev": "E"
   },
   "attendance": {
     "mqz6tg01dm8le-mqz6to3olq5wo-2026-06-27": "P",
@@ -708,9 +496,6 @@
     "mqz6tg01dm8le": [
       "2026-06-27",
       "2026-06-29"
-    ],
-    "mrf169pezlcfv": [
-      "2026-08-12"
     ],
     "msq2sep7nsvrm": [
       "2026-08-12",
