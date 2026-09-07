@@ -249,7 +249,134 @@
       "level": "5P",
       "name": "5-6P CB2",
       "fullName": "5P5-6P CB2",
-      "students": []
+      "students": [
+        {
+          "id": "mtrkbcwsptwnv",
+          "name": "Anaïs",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsoougn",
+          "name": "Bruno",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsnjqk6",
+          "name": "Eleanor",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsnb0sw",
+          "name": "Eliott",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcws1ikmu",
+          "name": "Eva",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcws0nggx",
+          "name": "Giulia",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsb5udq",
+          "name": "Laetitia Caroline",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsbe12m",
+          "name": "Léa",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcws1sz2y",
+          "name": "Leandro",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsvckz9",
+          "name": "Louis",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsy4a95",
+          "name": "Luna",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwseyryf",
+          "name": "Lya",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcws5k65x",
+          "name": "Mateo",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcws0dsdp",
+          "name": "Mattéo",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsnd19k",
+          "name": "Mayla",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwscjuvo",
+          "name": "Nathan François",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcws9nvo1",
+          "name": "Noah",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsc54ph",
+          "name": "Rebecca Cécile",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwsa30tr",
+          "name": "Rose",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcws6w7bb",
+          "name": "Tess",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkbcwstg263",
+          "name": "Ulysse",
+          "pool": "PB",
+          "gender": ""
+        }
+      ]
     }
   ],
   "criteria": {
