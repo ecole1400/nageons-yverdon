@@ -517,7 +517,134 @@
       "level": "5P",
       "name": "252",
       "fullName": "5P252",
-      "students": []
+      "students": [
+        {
+          "id": "mtrkc94yksg0e",
+          "name": "Aelynn",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94yr4e38",
+          "name": "Alexia",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94yuiijq",
+          "name": "Amélia",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94yitiya",
+          "name": "Ana",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94yd5aa3",
+          "name": "Annaë",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94ym5mdy",
+          "name": "David",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y3pueq",
+          "name": "Elyas",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y1s8y4",
+          "name": "Emil",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y2et9h",
+          "name": "Emma",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y3uhoy",
+          "name": "Juliana Maria",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94yarnhf",
+          "name": "Kailan",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94yts6lh",
+          "name": "Kevin",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y246xq",
+          "name": "Lara",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94ykjhgh",
+          "name": "Léana",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y8ei0w",
+          "name": "Neilya",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y27sef",
+          "name": "Samuel",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94yd3pkd",
+          "name": "Talyssa",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94ytdpce",
+          "name": "Tenzin Namsel",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94yyewsp",
+          "name": "Tiffany",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y65oms",
+          "name": "Yohan",
+          "pool": "PB",
+          "gender": ""
+        },
+        {
+          "id": "mtrkc94y93dyj",
+          "name": "Yuel",
+          "pool": "PB",
+          "gender": ""
+        }
+      ]
     }
   ],
   "criteria": {
