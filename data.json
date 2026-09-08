@@ -9,7 +9,7 @@
         {
           "id": "mtrka4gb8im7b",
           "name": "Adoni",
-          "pool": "PB",
+          "pool": "GB",
           "gender": ""
         },
         {
@@ -132,7 +132,8 @@
           "pool": "PB",
           "gender": ""
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "mtrkafmx67f6d",
@@ -242,7 +243,8 @@
           "pool": "PB",
           "gender": ""
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "mtrkb9o360dxc",
@@ -376,7 +378,8 @@
           "pool": "PB",
           "gender": ""
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "mtrkbrw4old2z",
@@ -510,7 +513,8 @@
           "pool": "PB",
           "gender": ""
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "mtrkbveypmpd8",
@@ -644,7 +648,8 @@
           "pool": "PB",
           "gender": ""
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "mtrkckr9l3s66",
@@ -772,7 +777,8 @@
           "pool": "PB",
           "gender": ""
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "mtrkco4oc2b57",
@@ -894,7 +900,8 @@
           "pool": "PB",
           "gender": ""
         }
-      ]
+      ],
+      "archived": false
     }
   ],
   "criteria": {
@@ -1303,5 +1310,9 @@
   },
   "evals": {},
   "attendance": {},
-  "lessonDates": {}
+  "lessonDates": {
+    "mtrk9txwlm2hn": [
+      "2026-09-09"
+    ]
+  }
 }
